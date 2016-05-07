@@ -10,18 +10,22 @@ Renderer = (function() {
 			resolution: 1
 		});
 		
+		PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+		
 		document.body.appendChild(renderer.view);
 		
 		PIXI.loader.add("assets/sprites.json").load(next);
 	}
 	
 	Renderer.sprite = function(name) {
-		return new PIXI.Sprite(PIXI.utils.TextureCache[name]);
+		var sprite = new PIXI.Sprite(PIXI.utils.TextureCache[name]);
+		sprite.anchor.set(0.5, 0.5);
+		return sprite;
 	}
 	
 	Renderer.animation = function(sprites) {
 		var anim = PIXI.extras.MovieClip.fromFrames(sprites);
-		anim.play();
+		anim.anchor.set(0.5, 0.5);
 		anim.speed = function(speed) {
 			anim.animationSpeed = speed/60;
 			return anim;

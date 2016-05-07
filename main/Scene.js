@@ -1,13 +1,7 @@
 Scene = function() {
 	var scene = {};
 	
-	scene.stage = new PIXI.ParticleContainer(512, {
-		position: true,
-		rotation: true,
-		scale: true,
-		alpha: true,
-		uvs: true
-	});
+	scene.stage = new PIXI.Container();
 	
 	scene.ticCount = 0; // How many frames has this scene run?
 	
