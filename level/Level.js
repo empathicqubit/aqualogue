@@ -25,6 +25,10 @@ Level = function(levelName) {
 	level.init = function() {
 		dolphin = Dolphin(level, level.map.spawn.axis, level.map.spawn.position, level.map.spawn.z);
 		placeEntityInGrid(dolphin);
+		
+		level.map.rocks.forEach(function(rock) {
+			placeEntityInGrid(Rock(level, rock.x, rock.y, rock.z, rock.type));
+		});
 	}
 	
 	level.think = function() {
@@ -36,9 +40,15 @@ Level = function(levelName) {
 		});
 		
 		// Camera thinker.
-		camera.x = 1024;
-		camera.y = 384;
-		camera.angle = Math.PI / 2;
+		var targetX, targetY;
+		
+		targetX = dolphin.position.x - 250*Math.cos(dolphin.angle);
+		targetY = dolphin.position.y - 250*Math.sin(dolphin.angle);
+		
+		camera.x += (targetX - camera.x) / 4;
+		camera.y += (targetY - camera.y) / 4;
+		camera.z = dolphin.position.z;
+		camera.angle = Math.atan2(dolphin.position.y - camera.y, dolphin.position.x - camera.x);
 	}
 	
 	level.render = function(frames) {
@@ -46,6 +56,10 @@ Level = function(levelName) {
 			if (!entity.activeSprite) {
 				return;
 			}
+			
+			var sprite = entity.activeSprite;
+			
+			sprite.visible = false;
 			
 			// Start with the angle and distance for the entity.
 			var xdist, ydist,
@@ -55,14 +69,13 @@ Level = function(levelName) {
 			angle = (Math.atan2(ydist, xdist) - camera.angle + Math.PI) % (2 * Math.PI) - Math.PI;
 			distance = Math.sqrt(ydist*ydist + xdist*xdist);
 			
-			if (distance > 1024 || distance < 1 || Math.abs(angle) > Math.PI/2) {
+			if (distance > 1024 || distance < 16 || Math.abs(angle) > Math.PI/2) {
 				// Not in the viewport.
-				entity.activeSprite.visible = false;
 				return;
 			}
 			
 			// In the viewport.
-			entity.activeSprite.visible = true;
+			sprite.visible = true;
 			
 			distance *= Math.cos(angle);
 			
@@ -73,9 +86,23 @@ Level = function(levelName) {
 			scrY = (entity.position.z - camera.z)*scrScale + 150;
 			
 			// Set sprite position.
-			entity.activeSprite.position.set(scrX, scrY);
-			entity.activeSprite.scale.set(scrScale, scrScale);
-			entity.activeSprite.alpha = Math.min(4 - (distance/256), 1);
+			sprite.position.set(scrX, scrY);
+			sprite.scale.set(scrScale, scrScale);
+			sprite.alpha = Math.min(4 - (distance/256), 1);
+			
+			// Use distance to sort.
+			sprite.ZINDEX = Math.round(distance/8);
+			
+			var index = level.stage.getChildIndex(sprite);
+			try {
+				while (index > 0 && level.stage.getChildAt(index-1).ZINDEX < sprite.ZINDEX) {
+					index--;
+				}
+				while (level.stage.getChildAt(index+1).ZINDEX > sprite.ZINDEX) {
+					index++;
+				}
+			} catch (e) {}
+			level.stage.setChildIndex(sprite, index);
 		});
 	}
 	
