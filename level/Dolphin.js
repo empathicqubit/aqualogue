@@ -34,9 +34,48 @@ Dolphin = function(level, axis, position, z) {
 	dolphin.currentSprite("normal");
 	
 	dolphin.think = function() {
-		dolphin.position.x = Math.cos(level.ticCount/100)*600 + 500;
+		doControls();
 		axisMove();
+		vMove();
 	};
+	
+	function doControls() {
+		var moveX, moveY;
+		
+		moveX = Input.held("left") ? -1 : Input.held("right") ? 1 : 0;
+		moveY = Input.held("up") ? -1 : Input.held("down") ? 1 : 0;
+		
+		dolphin.momentum.x += moveX*0.2;
+		dolphin.momentum.y += moveY*0.2;
+		
+		dolphin.momentum.x *= 0.99;
+		dolphin.momentum.y *= 0.99;
+		
+		var oldAngle = Math.atan2(dolphin.momentum.y, dolphin.momentum.x);
+		
+		if (moveX || moveY) {
+			var dist = Math.sqrt(
+				dolphin.momentum.x * dolphin.momentum.x +
+				dolphin.momentum.y * dolphin.momentum.y
+			);
+			
+			if (dist > 10) {
+				dist -= 0.22;
+			}
+			
+			var delta = Math.atan2(moveY, moveX);
+			delta = (delta - oldAngle + Math.PI * 3) % (2 * Math.PI) - Math.PI;
+			
+			if (Math.abs(delta) < Math.PI * 4/5) {
+				oldAngle += delta > 0.05 ? 0.05 : delta < -0.05 ? -0.05 : delta;
+				
+				dolphin.momentum.x = dist * Math.cos(oldAngle);
+				dolphin.momentum.y = dist * Math.sin(oldAngle);
+			}
+		}
+		
+		dolphin.activeSprite.rotation = oldAngle;
+	}
 	
 	function axisMove() {
 		var oldCurrent = dolphin.axis.current;
@@ -69,11 +108,20 @@ Dolphin = function(level, axis, position, z) {
 		
 		positionOnAxis();
 		
-		if (toucher = dolphin.colliding("geometry")) {
+		if (dolphin.colliding("geometry")) {
 			dolphin.momentum.x /= -1.5;
 			dolphin.axis.current = oldCurrent;
 			dolphin.axis.position = oldPosition;
 			positionOnAxis();
+		}
+	}
+	
+	function vMove() {
+		dolphin.position.z += dolphin.momentum.y;
+		
+		if (dolphin.colliding("geometry")) {
+			dolphin.position.z -= dolphin.momentum.y;
+			dolphin.momentum.y /= -1.5;
 		}
 	}
 	
