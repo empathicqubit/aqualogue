@@ -8,6 +8,8 @@ Level = function(levelName) {
 		angle: 0
 	};
 	
+	level.map = LevelDatabase[levelName];
+	
 	// A set of 512x512 blocks that entities are contained in.
 	// Blocks two grid spaces away (in a square, corners excluded) from the camera
 	// are thunk and rendered in a frame.
@@ -21,8 +23,7 @@ Level = function(levelName) {
 	var dolphin;
 	
 	level.init = function() {
-		dolphin = Dolphin(level, 250, 0, 0);
-		console.log(dolphin);
+		dolphin = Dolphin(level, level.map.spawn.axis, level.map.spawn.position, level.map.spawn.z);
 		placeEntityInGrid(dolphin);
 	}
 	
@@ -33,6 +34,11 @@ Level = function(levelName) {
 			}
 			placeEntityInGrid(entity);
 		});
+		
+		// Camera thinker.
+		camera.x = 1024;
+		camera.y = 384;
+		camera.angle = Math.PI / 2;
 	}
 	
 	level.render = function(frames) {

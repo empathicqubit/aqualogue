@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 	Game.init(function() {
-		Game.setScene(Level());
+		Game.setScene(Level("Test Level"));
 	});
 });
