@@ -69,7 +69,7 @@ Level = function(levelName) {
 			angle = (Math.atan2(ydist, xdist) - camera.angle + Math.PI) % (2 * Math.PI) - Math.PI;
 			distance = Math.sqrt(ydist*ydist + xdist*xdist);
 			
-			if (distance > 1024 || distance < 16 || Math.abs(angle) > Math.PI/2) {
+			if (distance > 1024 || distance < 16 || Math.abs(angle) > Math.PI/3) {
 				// Not in the viewport.
 				return;
 			}
