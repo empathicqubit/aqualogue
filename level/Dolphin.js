@@ -10,6 +10,13 @@ Dolphin = function(level, axis, position, z) {
 		position: position
 	};
 	
+	dolphin.bbox = {
+		x: 20,
+		y: 20,
+		z: 20,
+		tag: "player"
+	};
+	
 	axisMove();
 	
 	var sprite = Renderer.animation([
@@ -61,6 +68,13 @@ Dolphin = function(level, axis, position, z) {
 		}
 		
 		positionOnAxis();
+		
+		if (toucher = dolphin.colliding("geometry")) {
+			dolphin.momentum.x /= -1.5;
+			dolphin.axis.current = oldCurrent;
+			dolphin.axis.position = oldPosition;
+			positionOnAxis();
+		}
 	}
 	
 	function newAxis(transitionList) {

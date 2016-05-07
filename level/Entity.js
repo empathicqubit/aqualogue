@@ -39,5 +39,9 @@ Entity = function(level, x, y, z) {
 		currentAnim = name;
 	}
 	
+	entity.colliding = function(tag) {
+		return level.colliding(entity, tag);
+	}
+	
 	return entity;
 };

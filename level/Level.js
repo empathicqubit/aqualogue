@@ -110,6 +110,49 @@ Level = function(levelName) {
 		
 	}
 	
+	level.colliding = function(object, tag, excludes) {
+		excludes = excludes || [];
+		var xoffs = object.position.x % 600 > 300 ? 1 : -1;
+		var yoffs = object.position.y % 600 > 300 ? 512 : -512;
+		
+		try {
+			([0, xoffs, yoffs, xoffs+yoffs]).forEach(function(pos) {
+				if (entityGrid[pos]) {
+					entityGrid[pos].forEach(function(target) {
+						if (!target.bbox || target.bbox.tag != tag) {
+							return;
+						}
+						
+						if (Math.abs(target.position.x - object.position.x)
+						  > target.bbox.x + object.bbox.x) {
+							return;
+						}
+						
+						if (Math.abs(target.position.y - object.position.y)
+						  > target.bbox.y + object.bbox.y) {
+							return;
+						}
+						
+						if (Math.abs(target.position.z - object.position.z)
+						  > target.bbox.z + object.bbox.z) {
+							return;
+						}
+						
+						if (excludes.indexOf(target) != -1) {
+							return;
+						}
+						
+						throw target;
+					});
+				}
+			});
+		} catch (toucher) {
+			return toucher;
+		}
+		
+		return false;
+	}
+	
 	function placeEntityInGrid(entity) {
 		var grid;
 		var gridpos = getGridIndex(entity.position.x, entity.position.y);

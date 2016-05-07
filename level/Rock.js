@@ -8,7 +8,8 @@ Rock = function(level, x, y, z, size) {
 			small: 12,
 			medium: 31,
 			large: 47
-		})[size]
+		})[size],
+		tag: "geometry"
 	};
 	
 	rock.addSprite("sprite", Renderer.sprite("rock-" + size));
