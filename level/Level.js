@@ -10,13 +10,13 @@ Level = function(levelName) {
 	
 	level.map = LevelDatabase[levelName];
 	
-	// A set of 512x512 blocks that entities are contained in.
+	// A set of blocks that entities are contained in.
 	// Blocks two grid spaces away (in a square, corners excluded) from the camera
 	// are thunk and rendered in a frame.
 	var entityGrid = {};
 	
 	function getGridIndex(x, y) {
-		return Math.floor(x/512) + Math.floor(y/512)*512;
+		return Math.floor(x/600) + Math.floor(y/600)*512;
 		// If a map is bigger than 200k pixels one way then you have other problems.
 	}
 	
@@ -66,7 +66,7 @@ Level = function(levelName) {
 			    angle, distance;
 			xdist = entity.position.x - camera.x;
 			ydist = entity.position.y - camera.y;
-			angle = (Math.atan2(ydist, xdist) - camera.angle + Math.PI) % (2 * Math.PI) - Math.PI;
+			angle = (Math.atan2(ydist, xdist) - camera.angle + Math.PI * 3) % (2 * Math.PI) - Math.PI;
 			distance = Math.sqrt(ydist*ydist + xdist*xdist);
 			
 			if (distance > 1024 || distance < 16 || Math.abs(angle) > Math.PI/3) {
@@ -136,7 +136,7 @@ Level = function(levelName) {
 			 510,   511,   512,   513,  514,
 			       1023,  1024,  1025
 		];
-		var pos = getGridIndex(camera.x, camera.y); // todo use camera position
+		var pos = getGridIndex(camera.x, camera.y);
 		
 		// Build up an array separately so that we can modify the entity arrays during the callback.
 		var objs = [];
