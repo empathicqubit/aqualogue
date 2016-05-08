@@ -5,7 +5,9 @@ Level = function(levelName) {
 		x: 0,
 		y: 0,
 		z: 0,
-		angle: 0
+		angle: 0,
+		fwdX: 0,
+		fwdY: 0
 	};
 	
 	level.map = LevelDatabase[levelName];
@@ -42,13 +44,17 @@ Level = function(levelName) {
 		// Camera thinker.
 		var targetX, targetY;
 		
+		camera.fwdX += (dolphin.momentum.x/40 - camera.fwdX) / 32;
+		camera.fwdY += (dolphin.momentum.y*6 - camera.fwdY) / 32;
+		
 		targetX = dolphin.position.x - 250*Math.cos(dolphin.angle);
 		targetY = dolphin.position.y - 250*Math.sin(dolphin.angle);
 		
 		camera.x += (targetX - camera.x) / 4;
 		camera.y += (targetY - camera.y) / 4;
-		camera.z = dolphin.position.z;
-		camera.angle = Math.atan2(dolphin.position.y - camera.y, dolphin.position.x - camera.x);
+		camera.z = dolphin.position.z + camera.fwdY;
+		camera.angle = Math.atan2(dolphin.position.y - camera.y, dolphin.position.x - camera.x)
+			+ camera.fwdX;
 	}
 	
 	level.render = function(frames) {
