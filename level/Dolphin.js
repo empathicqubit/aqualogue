@@ -62,7 +62,7 @@ Dolphin = function(level, axis, position, z) {
 				dolphin.momentum.y * dolphin.momentum.y
 			);
 			
-			if (dist > 10) {
+			if (dist > 7) {
 				dist -= 0.22;
 			}
 			
@@ -80,6 +80,10 @@ Dolphin = function(level, axis, position, z) {
 			dolphin.momentum.y = dist * Math.sin(oldAngle);
 			
 			dolphin.activeSprite.rotation = oldAngle;
+			
+			if (dolphin.currentSprite() == "normal") {
+				dolphin.activeSprite.speed(dist*2);
+			}
 		}
 	}
 	
