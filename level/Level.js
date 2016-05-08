@@ -41,6 +41,10 @@ Level = function(levelName) {
 			placeEntityInGrid(entity);
 		});
 		
+		cameraThinker();
+	}
+	
+	function cameraThinker() {
 		// Camera thinker.
 		var targetX, targetY;
 		
