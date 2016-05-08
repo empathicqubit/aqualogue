@@ -11,6 +11,7 @@ Entity = function(level, x, y, z) {
 		anims[name] = sprite;
 		level.addSprite(sprite);
 		sprite.ZINDEX = 0;
+		sprite.visible = false;
 	}
 	
 	entity.currentSprite = function(name) {
