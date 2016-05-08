@@ -11,9 +11,9 @@ Dolphin = function(level, axis, position, z) {
 	};
 	
 	dolphin.bbox = {
-		x: 20,
-		y: 20,
-		z: 20,
+		x: 12,
+		y: 12,
+		z: 12,
 		tag: "player"
 	};
 	
@@ -41,19 +41,22 @@ Dolphin = function(level, axis, position, z) {
 	
 	function doControls() {
 		var moveX, moveY;
+		var moveStr, turnStr;
+		moveStr = 0.2;
+		turnStr = 0.05;
 		
 		moveX = Input.held("left") ? -1 : Input.held("right") ? 1 : 0;
 		moveY = Input.held("up") ? -1 : Input.held("down") ? 1 : 0;
 		
-		dolphin.momentum.x += moveX*0.2;
-		dolphin.momentum.y += moveY*0.2;
+		dolphin.momentum.x += moveX*moveStr;
+		dolphin.momentum.y += moveY*moveStr;
 		
 		dolphin.momentum.x *= 0.99;
 		dolphin.momentum.y *= 0.99;
 		
-		var oldAngle = Math.atan2(dolphin.momentum.y, dolphin.momentum.x);
-		
-		if (moveX || moveY) {
+		if (dolphin.momentum.x || dolphin.momentum.y) {
+			var oldAngle = Math.atan2(dolphin.momentum.y, dolphin.momentum.x);
+			
 			var dist = Math.sqrt(
 				dolphin.momentum.x * dolphin.momentum.x +
 				dolphin.momentum.y * dolphin.momentum.y
@@ -63,18 +66,21 @@ Dolphin = function(level, axis, position, z) {
 				dist -= 0.22;
 			}
 			
-			var delta = Math.atan2(moveY, moveX);
-			delta = (delta - oldAngle + Math.PI * 3) % (2 * Math.PI) - Math.PI;
-			
-			if (Math.abs(delta) < Math.PI * 4/5) {
-				oldAngle += delta > 0.05 ? 0.05 : delta < -0.05 ? -0.05 : delta;
+			if (moveX || moveY) {
 				
-				dolphin.momentum.x = dist * Math.cos(oldAngle);
-				dolphin.momentum.y = dist * Math.sin(oldAngle);
+				var delta = Math.atan2(moveY, moveX);
+				delta = (delta - oldAngle + Math.PI * 3) % (2 * Math.PI) - Math.PI;
+				
+				if (Math.abs(delta) < Math.PI * 4/5) {
+					oldAngle += delta > turnStr ? turnStr : delta < -turnStr ? -turnStr : delta;
+				}
 			}
+			
+			dolphin.momentum.x = dist * Math.cos(oldAngle);
+			dolphin.momentum.y = dist * Math.sin(oldAngle);
+			
+			dolphin.activeSprite.rotation = oldAngle;
 		}
-		
-		dolphin.activeSprite.rotation = oldAngle;
 	}
 	
 	function axisMove() {

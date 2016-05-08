@@ -76,6 +76,7 @@ Level = function(levelName) {
 			
 			// In the viewport.
 			sprite.visible = true;
+			sprite.alpha = Math.min(4 - (distance/256), 1);
 			
 			distance *= Math.cos(angle);
 			
@@ -88,7 +89,6 @@ Level = function(levelName) {
 			// Set sprite position.
 			sprite.position.set(scrX, scrY);
 			sprite.scale.set(scrScale, scrScale);
-			sprite.alpha = Math.min(4 - (distance/256), 1);
 			
 			// Use distance to sort.
 			sprite.ZINDEX = Math.round(distance/8);
