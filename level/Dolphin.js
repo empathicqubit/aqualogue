@@ -19,7 +19,7 @@ Dolphin = function(level, axis, position, z) {
 	
 	axisMove();
 	
-	var sprite = Renderer.animation([
+	dolphin.addSprite("normal", Renderer.animation([
 		"dolphin3",
 		"dolphin2",
 		"dolphin1",
@@ -28,22 +28,76 @@ Dolphin = function(level, axis, position, z) {
 		"dolphin4",
 		"dolphin5",
 		"dolphin4"
-	]).speed(20);
+	]).speed(20));
+	dolphin.addSprite("flipped", Renderer.animation([
+		"dolphinu3",
+		"dolphinu2",
+		"dolphinu1",
+		"dolphinu2",
+		"dolphinu3",
+		"dolphinu4",
+		"dolphinu5",
+		"dolphinu4"
+	]).speed(20));
+	dolphin.addSprite("nf1", Renderer.sprite("dolphinf"));
+	dolphin.addSprite("nf2", Renderer.sprite("dolphinuf"));
+	dolphin.addSprite("fn1", Renderer.sprite("dolphinub"));
+	dolphin.addSprite("fn2", Renderer.sprite("dolphinb"));
 	
-	dolphin.addSprite("normal", sprite);
 	dolphin.currentSprite("normal");
 	
 	dolphin.think = function() {
+		doCharge();
+		doFlips();
 		doControls();
 		axisMove();
 		vMove();
 	};
+	
+	dolphin.fliptimer = 0;
+	
+	function doCharge() {
+		if (Input.held("dash")) {
+			dolphin.charging = true;
+			dolphin.fliptimer = 99;
+		} else {
+			dolphin.charging = false;
+		}
+	}
+	
+	function doFlips() {
+		if (dolphin.flipping) {
+			dolphin.flipping--;
+			dolphin.fliptimer = 59;
+			
+			if (dolphin.flipping == 4) {
+				dolphin.currentSprite(dolphin.flipped ? "flipped" : "normal");
+			} else if (dolphin.flipping == 8) {
+				dolphin.currentSprite(dolphin.flipped ? "nf2" : "fn2");
+			}
+		} else if (dolphin.fliptimer > 60) {
+			dolphin.flipping = 12;
+			dolphin.flipped = !dolphin.flipped;
+			dolphin.fliptimer = 0;
+			
+			dolphin.currentSprite(dolphin.flipped ? "nf1" : "fn1");
+		} else if ((!!dolphin.flipped) != (Math.abs(dolphin.activeSprite.rotation) > Math.PI/2)) {
+			dolphin.fliptimer++;
+		} else {
+			dolphin.fliptimer = 0;
+		}
+	}
 	
 	function doControls() {
 		var moveX, moveY;
 		var moveStr, turnStr;
 		moveStr = 0.2;
 		turnStr = 0.05;
+		
+		if (dolphin.charging) {
+			turnStr /= 5;
+			moveStr = 0;
+		}
 		
 		moveX = Input.held("left") ? -1 : Input.held("right") ? 1 : 0;
 		moveY = Input.held("up") ? -1 : Input.held("down") ? 1 : 0;
@@ -62,8 +116,12 @@ Dolphin = function(level, axis, position, z) {
 				dolphin.momentum.y * dolphin.momentum.y
 			);
 			
-			if (dist > 7) {
-				dist -= 0.22;
+			if (!dolphin.charging && dist > 7) {
+				dist -= 0.13;
+			}
+			
+			if (dolphin.charging) {
+				dist += 0.16;
 			}
 			
 			if (moveX || moveY) {
@@ -81,7 +139,7 @@ Dolphin = function(level, axis, position, z) {
 			
 			dolphin.activeSprite.rotation = oldAngle;
 			
-			if (dolphin.currentSprite() == "normal") {
+			if (!dolphin.flipping) {
 				dolphin.activeSprite.speed(dist*2);
 			}
 		}
