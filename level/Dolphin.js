@@ -49,7 +49,13 @@ Dolphin = function(level, axis, position, z) {
 	dolphin.think = function() {
 		doCharge();
 		doFlips();
-		doControls();
+		
+		if (dolphin.position.z < 0) {
+			doFalling();
+		} else {
+			doControls();
+		}
+		
 		axisMove();
 		vMove();
 	};
@@ -86,6 +92,11 @@ Dolphin = function(level, axis, position, z) {
 		} else {
 			dolphin.fliptimer = 0;
 		}
+	}
+	
+	function doFalling() {
+		dolphin.momentum.y += 0.2;
+		dolphin.activeSprite.rotation = Math.atan2(dolphin.momentum.y, dolphin.momentum.x);
 	}
 	
 	function doControls() {
