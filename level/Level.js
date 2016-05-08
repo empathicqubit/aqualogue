@@ -7,10 +7,23 @@ Level = function(levelName) {
 		z: 0,
 		angle: 0,
 		fwdX: 0,
-		fwdY: 0
+		fwdY: 0,
+		momx: 0,
+		momy: 0,
+		oldangle: 0
 	};
 	
 	level.map = LevelDatabase[levelName];
+	
+	// Scroll planes
+	var waterBack = ScrollPlane(0, 20, 1, 1, 0, 0, "waterback", 130);
+	var waves = [];
+	
+	for (var i = 1024; i > 150; i *= 0.85) {
+		waves.push(ScrollPlane(
+			i, -3000/i, 40, 250/i, (i-420)/2, (Math.random()*300-150)/i, "water", Math.round(i/8) 
+		));
+	}
 	
 	// A set of blocks that entities are contained in.
 	// Blocks two grid spaces away (in a square, corners excluded) from the camera
@@ -25,6 +38,11 @@ Level = function(levelName) {
 	var dolphin;
 	
 	level.init = function() {
+		level.stage.addChild(waterBack.plane);
+		waves.forEach(function(p) {
+			level.stage.addChild(p.plane);
+		});
+		
 		dolphin = Dolphin(level, level.map.spawn.axis, level.map.spawn.position, level.map.spawn.z);
 		placeEntityInGrid(dolphin);
 		
@@ -54,8 +72,8 @@ Level = function(levelName) {
 		targetX = dolphin.position.x - 250*Math.cos(dolphin.angle);
 		targetY = dolphin.position.y - 250*Math.sin(dolphin.angle);
 		
-		camera.x += (targetX - camera.x) / 4;
-		camera.y += (targetY - camera.y) / 4;
+		camera.x += camera.momx = (targetX - camera.x) / 4;
+		camera.y += camera.momy = (targetY - camera.y) / 4;
 		camera.z = dolphin.position.z + camera.fwdY;
 		camera.angle = Math.atan2(dolphin.position.y - camera.y, dolphin.position.x - camera.x)
 			+ camera.fwdX;
@@ -81,6 +99,11 @@ Level = function(levelName) {
 			
 			if (distance > 1024 || distance < 16 || Math.abs(angle) > Math.PI/3) {
 				// Not in the viewport.
+				return;
+			}
+			
+			if ((entity.position.z > 0) != (camera.z > 0) && Math.abs(camera.z) > 120) {
+				// On the wrong side of the water.
 				return;
 			}
 			
@@ -114,6 +137,23 @@ Level = function(levelName) {
 			} catch (e) {}
 			level.stage.setChildIndex(sprite, index);
 		});
+		
+		// Scroll planes
+		var xScroll = Math.sqrt(camera.momx*camera.momx + camera.momy*camera.momy)
+			* Math.sin(Math.atan2(camera.momy, camera.momx)-camera.angle);
+		
+		var turn = camera.angle - camera.oldangle;
+		camera.oldangle = camera.angle;
+		turn = (turn + Math.PI * 3) % (2 * Math.PI) - Math.PI;
+		
+		waves.forEach(function(p) {
+			p.plane.tilePosition.x -= (xScroll*p.moveFactor) + (turn*p.turnFactor) - p.driftFactor;
+			
+			p.plane.position.y = 150 - camera.z*p.moveFactor + p.z;
+		});
+		
+		waterBack.plane.position.y = Math.max(0, Math.min(150-(camera.z/4), 170-(camera.z*1.5)));
+		waterBack.plane.scale.y = 280 - waterBack.plane.position.y;
 	}
 	
 	level.end = function() {

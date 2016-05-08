@@ -14,7 +14,14 @@ Renderer = (function() {
 		
 		document.body.appendChild(renderer.view);
 		
-		PIXI.loader.add("assets/sprites.json").load(next);
+		PIXI.loader.add([
+			"assets/sprites.json",
+			
+			"assets/tiles/water.png",
+			"assets/tiles/waterback.png",
+			
+			"assets/type.fnt"
+		]).load(next);
 	}
 	
 	Renderer.sprite = function(name) {
