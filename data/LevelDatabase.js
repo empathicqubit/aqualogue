@@ -87,6 +87,7 @@ LevelDatabase = {
 			{x: 1024, y: 836, z: 2, type: "small"},
 			{x: 1024, y: 892, z: 58, type: "small"},
 			{x: 1024, y: 892, z: 2, type: "small"},
+			{x: 996, y: 864, z: 30, type: "small"},
 		],
 		
 		spawn: {

@@ -66,8 +66,8 @@ Level = function(levelName) {
 		// Camera thinker.
 		var targetX, targetY;
 		
-		camera.fwdX += (dolphin.momentum.x/40 - camera.fwdX) / 32;
-		camera.fwdY += (dolphin.momentum.y*6 - camera.fwdY) / 32;
+		camera.fwdX += (dolphin.momentum.x/30 - camera.fwdX) / 32;
+		camera.fwdY += (dolphin.momentum.y*8 - camera.fwdY) / 32;
 		
 		targetX = dolphin.position.x - 250*Math.cos(dolphin.angle);
 		targetY = dolphin.position.y - 250*Math.sin(dolphin.angle);
