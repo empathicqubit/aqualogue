@@ -14,6 +14,7 @@ Level = function(levelName) {
 	};
 	
 	level.map = LevelDatabase[levelName];
+	level.saveData = Memory.stage(levelName);
 	
 	// Scroll planes
 	var waterBack = ScrollPlane(0, 20, 1, 1, 0, 0, "waterback", 130);
@@ -51,8 +52,10 @@ Level = function(levelName) {
 			placeEntityInGrid(Rock(level, rock.x, rock.y, rock.z, rock.type));
 		});
 		
-		level.map.keys.forEach(function(key) {
-			placeEntityInGrid(Key(level, key.x, key.y, key.z, key.color));
+		level.map.keys.forEach(function(key, index) {
+			if (!level.saveData.keys[index]) {
+				placeEntityInGrid(Key(level, key.x, key.y, key.z, index, key.color));
+			}
 		});
 	}
 	
@@ -162,6 +165,9 @@ Level = function(levelName) {
 		
 		waterBack.plane.position.y = Math.max(0, Math.min(150-(camera.z/4), 170-(camera.z*1.5)));
 		waterBack.plane.scale.y = 280 - waterBack.plane.position.y;
+		
+		// Keys
+		renderKeys();
 	}
 	
 	level.end = function() {
@@ -384,6 +390,19 @@ Level = function(levelName) {
 				obj.attractTarget = dolphin;
 			}
 		});
+	}
+	
+	var keySprites = [];
+	function renderKeys() {
+		var index;
+		
+		// Add
+		for (index = keySprites.length; index < Memory.global.keys.length; index++) {
+			var spr = Renderer.sprite("key-" + Memory.global.keys[index]);
+			spr.position.set(20 + 15*index, 28);
+			keySprites.push(spr);
+			level.stage.addChild(spr);
+		}
 	}
 	
 	return level;
