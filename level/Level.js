@@ -102,7 +102,8 @@ Level = function(levelName) {
 				return;
 			}
 			
-			if ((entity.position.z > 0) != (camera.z > 0) && Math.abs(camera.z) > 120) {
+			if ((entity.position.z > 0) != (camera.z > 0)
+				&& Math.abs(camera.z) > 120 && distance > 300) {
 				// On the wrong side of the water.
 				return;
 			}
@@ -115,7 +116,7 @@ Level = function(levelName) {
 			
 			// Get screen position and scale.
 			var scrX, scrY, scrScale;
-			scrX = (angle * 1000 / Math.PI) + 250;
+			scrX = (Math.tan(angle) * 250) + 250;
 			scrScale = 250/distance;
 			scrY = (entity.position.z - camera.z)*scrScale + 150;
 			
