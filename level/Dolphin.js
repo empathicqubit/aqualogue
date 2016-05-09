@@ -151,7 +151,7 @@ Dolphin = function(level, axis, position, z) {
 			dolphin.activeSprite.rotation = oldAngle;
 			
 			if (!dolphin.flipping) {
-				dolphin.activeSprite.speed(dist*2);
+				dolphin.activeSprite.speed(dist*2+3);
 			}
 		}
 	}
