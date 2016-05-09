@@ -45,9 +45,14 @@ Level = function(levelName) {
 		
 		dolphin = Dolphin(level, level.map.spawn.axis, level.map.spawn.position, level.map.spawn.z);
 		placeEntityInGrid(dolphin);
+		initParaloop();
 		
 		level.map.rocks.forEach(function(rock) {
 			placeEntityInGrid(Rock(level, rock.x, rock.y, rock.z, rock.type));
+		});
+		
+		level.map.keys.forEach(function(key) {
+			placeEntityInGrid(Key(level, key.x, key.y, key.z, key.color));
 		});
 	}
 	
@@ -58,6 +63,8 @@ Level = function(levelName) {
 			}
 			placeEntityInGrid(entity);
 		});
+		
+		doParaloop();
 		
 		cameraThinker();
 	}
@@ -244,6 +251,139 @@ Level = function(levelName) {
 		});
 		
 		objs.forEach(callback);
+	}
+	
+	// Paraloop stuff starts here
+	var paraloopObjs = [];
+	var paraloopLength = 42;
+	var paraloopPos = 0;
+	
+	function initParaloop() {
+		for (var i = 0; i < paraloopLength; i++) {
+			var obj = Entity(level, -99999, -99999, -99999);
+			obj.addSprite("spr", Renderer.sprite("loopstar"));
+			obj.currentSprite("spr");
+			paraloopObjs.push(obj);
+		}
+	}
+	
+	function doParaloop() {
+		if (level.ticCount % 4) {
+			return;
+		}
+		
+		var obj = paraloopObjs[paraloopPos];
+		obj.position.x = dolphin.position.x;
+		obj.position.y = dolphin.position.y;
+		obj.position.z = dolphin.position.z;
+		placeEntityInGrid(obj);
+		
+		var check = paraloopPos;
+		do {
+			check = (check+1) % paraloopLength;
+			
+			var star = paraloopObjs[check];
+			if (
+				Math.abs(star.position.x - dolphin.position.x) < 36 &&
+				Math.abs(star.position.y - dolphin.position.y) < 36 &&
+				Math.abs(star.position.z - dolphin.position.z) < 36
+			) {
+				checkParaloop(check);
+				break;
+			}
+		} while (check != paraloopPos);
+		
+		paraloopPos++; paraloopPos %= paraloopLength;
+	}
+	
+	function checkParaloop(pos) {
+		var loopLen = (paraloopPos - pos + paraloopLength) % paraloopLength;
+		
+		if (loopLen < 4) {
+			return;
+		}
+		
+		var origPos = pos;
+		var minX, maxX, minY, maxY, minZ, maxZ;
+		minX = maxX = paraloopObjs[pos].position.x;
+		minY = maxY = paraloopObjs[pos].position.y;
+		minZ = maxZ = paraloopObjs[pos].position.z;
+		
+		while (pos != paraloopPos) {
+			pos = (pos+1) % paraloopLength;
+			var p = paraloopObjs[pos].position;
+			
+			if (minX > p.x) minX = p.x;
+			if (maxX < p.x) maxX = p.x;
+			if (minY > p.y) minY = p.y;
+			if (maxY < p.y) maxY = p.y;
+			if (minZ > p.z) minZ = p.z;
+			if (maxZ < p.z) maxZ = p.z;
+		}
+		
+		// Enforce a minimum loop size.
+		if (
+			(maxX - minX < 40 ? 1 : 0) +
+			(maxY - minY < 40 ? 1 : 0) +
+			(maxZ - minZ < 40 ? 1 : 0) > 1
+		) {
+			return;
+		}
+		
+		// Loop again to find the radius.
+		var dist = 0, distnum = 0;
+		pos = origPos;
+		minX = (minX+maxX)/2;
+		minY = (minY+maxY)/2;
+		minZ = (minZ+maxZ)/2;
+		
+		while (pos != paraloopPos) {
+			pos = (pos+1) % paraloopLength;
+			var p = paraloopObjs[pos].position;
+			
+			var newDist = (p.x-minX)*(p.x-minX)
+			            + (p.y-minY)*(p.y-minY)
+			            + (p.z-minZ)*(p.z-minZ);
+			
+			dist += Math.sqrt(newDist);
+			distnum++;
+		}
+		
+		dist /= distnum;
+		
+		// Enforce a minimum radius of 40 pixels.
+		if (dist < 40) {
+			return;
+		}
+		
+		// Attract and clear out the paraloop.
+		paraloopObjs.forEach(function(obj) {
+			obj.position.x = -99999;
+			obj.position.y = -99999;
+			obj.position.z = -99999;
+		});
+		attractCollectiblesToDolphin(minX, minY, minZ, dist*dist);
+	}
+	
+	function attractCollectiblesToDolphin(x, y, z, sqdist) {
+		sqdist *= 0.7;
+		
+		eachEntity(function(obj) {
+			if (!obj.attract) {
+				return;
+			}
+			
+			var p = obj.position;
+			
+			if (
+				(p.x-x)*(p.x-x) +
+				(p.y-y)*(p.y-y) +
+				(p.z-z)*(p.z-z) < sqdist
+			) {
+				obj.think = obj.attract;
+				obj.attractTarget = dolphin;
+			}
+		});
 	}
 	
 	return level;

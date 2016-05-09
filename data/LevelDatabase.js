@@ -90,6 +90,11 @@ LevelDatabase = {
 			{x: 996, y: 864, z: 30, type: "small"},
 		],
 		
+		keys: [
+			{x: 1024, y: 864, z: 30, color: "red"},
+			{x: 768, y: 768, z: 150, color: "blue"},
+		],
+		
 		spawn: {
 			axis: 0,
 			position: 1,
