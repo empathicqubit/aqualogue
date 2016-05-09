@@ -40,8 +40,8 @@ Entity = function(level, x, y, z) {
 		currentAnim = name;
 	}
 	
-	entity.colliding = function(tag) {
-		return level.colliding(entity, tag);
+	entity.colliding = function(tag, excludes) {
+		return level.colliding(entity, tag, excludes);
 	}
 	
 	return entity;

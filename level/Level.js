@@ -165,9 +165,10 @@ Level = function(levelName) {
 		excludes = excludes || [];
 		var xoffs = object.position.x % 600 > 300 ? 1 : -1;
 		var yoffs = object.position.y % 600 > 300 ? 512 : -512;
+		var start = getGridIndex(object.position.x, object.position.y);
 		
 		try {
-			([0, xoffs, yoffs, xoffs+yoffs]).forEach(function(pos) {
+			([start, start+xoffs, start+yoffs, start+xoffs+yoffs]).forEach(function(pos) {
 				if (entityGrid[pos]) {
 					entityGrid[pos].forEach(function(target) {
 						if (!target.bbox || target.bbox.tag != tag) {
