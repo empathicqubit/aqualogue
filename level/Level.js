@@ -459,13 +459,13 @@ Level = function(levelName) {
 			Input.held("greenkey") ? "green" :
 			Input.held("yellowkey") ? "yellow" : "white";
 		
-		if (Input.pressed("rocksm")) {
+		if (pressOrTurbo("rocksm")) {
 			spawnRock("small");
 		}
-		if (Input.pressed("rockmed")) {
+		if (pressOrTurbo("rockmed")) {
 			spawnRock("medium");
 		}
-		if (Input.pressed("rocklg")) {
+		if (pressOrTurbo("rocklg")) {
 			spawnRock("large");
 		}
 		
@@ -530,6 +530,10 @@ Level = function(levelName) {
 			dolphin.momentum.x = Math.cos(dolphin.activeSprite.rotation)*2;
 			dolphin.momentum.y = Math.sin(dolphin.activeSprite.rotation)*2;
 		}
+		if (Input.held("fast")) {
+			dolphin.momentum.x = Math.cos(dolphin.activeSprite.rotation)*8;
+			dolphin.momentum.y = Math.sin(dolphin.activeSprite.rotation)*8;
+		}
 		
 		if (Input.pressed("export")) {
 			level.map.spawn = {
@@ -539,6 +543,10 @@ Level = function(levelName) {
 			};
 			
 			LEVELEDITORBOX.innerText = JSON.stringify(level.map);
+		}
+		
+		function pressOrTurbo(key) {
+			return Input.pressed(key) || (Input.held("fast") && Input.held(key) && !(level.ticCount % 4));
 		}
 	}
 	

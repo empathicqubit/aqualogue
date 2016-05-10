@@ -32,6 +32,7 @@ Input = (function() {
 		greenkey: 66+5, // G
 		yellowkey: 83+6, // Y
 		slow: 81, // Q
+		fast: 69, // E
 	};
 	
 	Input.setControl = function(control, key) {
