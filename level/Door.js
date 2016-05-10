@@ -14,5 +14,14 @@ Door = function(level, x, y, z, index, color) {
 	door.door = color;
 	door.currentSprite("sprite");
 	
+	if (level.editor) {
+		var info = level.map.doors[index];
+		
+		door.editorremove = function() {
+			level.map.doors.splice(level.map.doors.indexOf(info), 1);
+			door.position.x = -99999;
+		}
+	}
+	
 	return door;
 };

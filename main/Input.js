@@ -18,6 +18,20 @@ Input = (function() {
 		
 		accept: 13, // Enter
 		cancel: 8, // Backspace
+		
+		// Editor controls
+		rocksm: 49, // 1
+		rockmed: 50,
+		rocklg: 51,
+		key: 52,
+		door: 53,
+		remove: 9, // Tab
+		export: 192, // ~
+		redkey: 82, // R
+		bluekey: 66, // B
+		greenkey: 66+5, // G
+		yellowkey: 83+6, // Y
+		slow: 81, // Q
 	};
 	
 	Input.setControl = function(control, key) {

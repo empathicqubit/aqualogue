@@ -9,5 +9,14 @@ Key = function(level, x, y, z, index, color) {
 		Memory.global.keys.push(color);
 	}
 	
+	if (level.editor) {
+		var info = level.map.keys[index];
+		
+		key.editorremove = function() {
+			level.map.keys.splice(level.map.keys.indexOf(info), 1);
+			key.position.x = -99999;
+		}
+	}
+	
 	return key;
 };

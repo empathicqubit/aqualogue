@@ -51,17 +51,27 @@ Level = function(levelName) {
 		initParaloop();
 		
 		level.map.rocks.forEach(function(rock) {
-			placeEntityInGrid(Rock(level, rock.x, rock.y, rock.z, rock.type));
+			var obj = Rock(level, rock.x, rock.y, rock.z, rock.type);
+			placeEntityInGrid(obj);
+			
+			if (level.editor) {
+				var info = rock;
+				
+				obj.editorremove = function() {
+					level.map.rocks.splice(level.map.rocks.indexOf(info), 1);
+					obj.position.x = -99999;
+				}
+			}
 		});
 		
 		level.map.keys.forEach(function(key, index) {
-			if (!level.saveData.keys[index]) {
+			if (level.editor || !level.saveData.keys[index]) {
 				placeEntityInGrid(Key(level, key.x, key.y, key.z, index, key.color));
 			}
 		});
 		
 		level.map.doors.forEach(function(door, index) {
-			if (!level.saveData.doors[index]) {
+			if (level.editor || !level.saveData.doors[index]) {
 				placeEntityInGrid(Door(level, door.x, door.y, door.z, index, door.color));
 			}
 		});
@@ -78,6 +88,10 @@ Level = function(levelName) {
 		doParaloop();
 		
 		cameraThinker();
+		
+		if (level.editor) {
+			levelEditor();
+		}
 	}
 	
 	function cameraThinker() {
@@ -186,6 +200,7 @@ Level = function(levelName) {
 	}
 	
 	level.colliding = function(object, tag, excludes) {
+		if (level.editor) { return; }
 		excludes = excludes || [];
 		var xoffs = object.position.x % 600 > 300 ? 1 : -1;
 		var yoffs = object.position.y % 600 > 300 ? 512 : -512;
@@ -314,6 +329,8 @@ Level = function(levelName) {
 	}
 	
 	function checkParaloop(pos) {
+		if (level.editor) { return; }
+		
 		var loopLen = (paraloopPos - pos + paraloopLength) % paraloopLength;
 		
 		if (loopLen < 4) {
@@ -421,6 +438,107 @@ Level = function(levelName) {
 			spr.position.set(20 + 15*index, 28);
 			keySprites.push(spr);
 			level.stage.addChild(spr);
+		}
+	}
+	
+	level.edit = function() {
+		level.editor = true;
+		
+		LEVELEDITORBOX = document.createElement('div');
+		LEVELEDITORBOX.style.backgroundColor = '#CCC';
+		LEVELEDITORBOX.style.minHeight = '100px';
+		document.body.appendChild(LEVELEDITORBOX);
+		
+		return level;
+	}
+	
+	function levelEditor() {
+		var color = 
+			Input.held("redkey") ? "red" :
+			Input.held("bluekey") ? "blue" :
+			Input.held("greenkey") ? "green" :
+			Input.held("yellowkey") ? "yellow" : "white";
+		
+		if (Input.pressed("rocksm")) {
+			spawnRock("small");
+		}
+		if (Input.pressed("rockmed")) {
+			spawnRock("medium");
+		}
+		if (Input.pressed("rocklg")) {
+			spawnRock("large");
+		}
+		
+		function spawnRock(size) {
+			var info = {
+				x: Math.round(dolphin.position.x),
+				y: Math.round(dolphin.position.y),
+				z: Math.round(dolphin.position.z),
+				type: size
+			};
+			level.map.rocks.push(info);
+			var rock = Rock(level, info.x, info.y, info.z, info.type);
+			
+			rock.editorremove = function() {
+				level.map.rocks.splice(level.map.rocks.indexOf(info), 1);
+				rock.position.x = -99999;
+			}
+			
+			placeEntityInGrid(rock);
+		}
+		
+		if (Input.pressed("key")) {
+			var info = {
+				x: Math.round(dolphin.position.x),
+				y: Math.round(dolphin.position.y),
+				z: Math.round(dolphin.position.z),
+				color: color
+			};
+			
+			level.map.keys.push(info);
+			
+			placeEntityInGrid(Key(level, info.x, info.y, info.z, level.map.keys.length-1, color));
+		}
+		
+		if (Input.pressed("door")) {
+			var info = {
+				x: Math.round(dolphin.position.x),
+				y: Math.round(dolphin.position.y),
+				z: Math.round(dolphin.position.z),
+				color: color
+			};
+			
+			level.map.doors.push(info);
+			
+			placeEntityInGrid(Door(level, info.x, info.y, info.z, level.map.doors.length-1, color));
+		}
+		
+		if (Input.held("remove")) {
+			eachEntity(function(obj) {
+				if (
+					obj.editorremove
+					&& Math.abs(obj.position.x - dolphin.position.x) < 18
+					&& Math.abs(obj.position.y - dolphin.position.y) < 18
+					&& Math.abs(obj.position.z - dolphin.position.z) < 18
+				) {
+					obj.editorremove();
+				}
+			});
+		}
+		
+		if (Input.held("slow")) {
+			dolphin.momentum.x = Math.cos(dolphin.activeSprite.rotation)*2;
+			dolphin.momentum.y = Math.sin(dolphin.activeSprite.rotation)*2;
+		}
+		
+		if (Input.pressed("export")) {
+			level.map.spawn = {
+				axis: dolphin.axis.current,
+				position: Math.round(dolphin.axis.position),
+				z: Math.round(dolphin.position.z)
+			};
+			
+			LEVELEDITORBOX.innerText = JSON.stringify(level.map);
 		}
 	}
 	
