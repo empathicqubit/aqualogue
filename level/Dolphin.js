@@ -50,7 +50,7 @@ Dolphin = function(level, axis, position, z) {
 		doCharge();
 		doFlips();
 		
-		if (dolphin.position.z < 0) {
+		if (dolphin.position.z < 0 && !(level.editor && !Input.held("dash"))) {
 			doFalling();
 		} else {
 			doControls();
