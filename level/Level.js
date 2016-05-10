@@ -161,7 +161,7 @@ Level = function(levelName) {
 			
 			var index = level.stage.getChildIndex(sprite);
 			try {
-				while (index > 0 && level.stage.getChildAt(index-1).ZINDEX < sprite.ZINDEX) {
+				while (index > 0 && (level.stage.getChildAt(index-1).ZINDEX || 0) < sprite.ZINDEX) {
 					index--;
 				}
 				while (level.stage.getChildAt(index+1).ZINDEX > sprite.ZINDEX) {
