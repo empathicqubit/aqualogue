@@ -2,9 +2,9 @@ Collectible = function(level, x, y, z) {
 	var collectible = Entity(level, x, y, z);
 	
 	collectible.bbox = {
-		x: 12,
-		y: 12,
-		z: 12,
+		x: 15,
+		y: 15,
+		z: 15,
 		tag: "collectible"
 	};
 	

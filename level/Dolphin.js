@@ -58,6 +58,12 @@ Dolphin = function(level, axis, position, z) {
 		
 		axisMove();
 		vMove();
+		
+		var collectible;
+		if (collectible = dolphin.colliding("collectible")) {
+			collectible.think = collectible.attract;
+			collectible.attractTarget = dolphin;
+		}
 	};
 	
 	dolphin.fliptimer = 0;
