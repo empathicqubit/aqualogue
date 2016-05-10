@@ -20,6 +20,8 @@ Renderer = (function() {
 			"assets/tiles/water.png",
 			"assets/tiles/waterback.png",
 			
+			"assets/tiles/bg-mountains.png",
+			
 			"assets/type.fnt"
 		]).load(next);
 	}
