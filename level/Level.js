@@ -402,6 +402,14 @@ Level = function(levelName) {
 	function renderKeys() {
 		var index;
 		
+		// Remove/reset
+		if (keySprites.length > Memory.global.keys.length) {
+			keySprites.forEach(function(key) {
+				level.stage.removeChild(key);
+			});
+			keySprites = [];
+		}
+		
 		// Add
 		for (index = keySprites.length; index < Memory.global.keys.length; index++) {
 			var spr = Renderer.sprite("key-" + Memory.global.keys[index]);
