@@ -2,6 +2,11 @@ LevelDatabase = {
 
 	"Test Level": {
 		
+		background: {
+			image: "mountains",
+			width: 3072,
+		},
+		
 		axes: [
 			{
 				x: 768, y: 768,

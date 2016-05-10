@@ -17,6 +17,7 @@ Level = function(levelName) {
 	level.saveData = Memory.stage(levelName);
 	
 	// Scroll planes
+	var background = ScrollPlane(0, 0, 360, 1, level.map.background.width, 0, "bg-" + level.map.background.image, 131);
 	var waterBack = ScrollPlane(0, 20, 1, 1, 0, 0, "waterback", 130);
 	var waves = [];
 	
@@ -39,6 +40,7 @@ Level = function(levelName) {
 	var dolphin;
 	
 	level.init = function() {
+		level.stage.addChild(background.plane);
 		level.stage.addChild(waterBack.plane);
 		waves.forEach(function(p) {
 			level.stage.addChild(p.plane);
@@ -169,8 +171,11 @@ Level = function(levelName) {
 			p.plane.position.y = 150 - camera.z*p.moveFactor + p.z;
 		});
 		
-		waterBack.plane.position.y = Math.max(0, Math.min(150-(camera.z/4), 170-(camera.z*1.5)));
+		waterBack.plane.position.y = Math.max(0, Math.min(150-(camera.z/5), 170-(camera.z*1.5)));
 		waterBack.plane.scale.y = 280 - waterBack.plane.position.y;
+		
+		background.plane.position.y = (camera.z/-6)-160;
+		background.plane.tilePosition.x = (camera.angle/(-2*Math.PI)) * background.turnFactor;
 		
 		// Keys
 		renderKeys();
