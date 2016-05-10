@@ -23,7 +23,7 @@ Level = function(levelName) {
 	
 	for (var i = 1024; i > 150; i *= 0.85) {
 		waves.push(ScrollPlane(
-			i, -3000/i, 40, 250/i, (i-420)/2, (Math.random()*300-150)/i, "water", Math.round(i/8) 
+			i, -3000/i, 40, 250/i, (i)/2, (Math.random()*300-150)/i, "water", Math.round(i/8) 
 		));
 	}
 	
