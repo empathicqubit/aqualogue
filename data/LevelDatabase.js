@@ -93,6 +93,11 @@ LevelDatabase = {
 		keys: [
 			{x: 1024, y: 864, z: 30, color: "red"},
 			{x: 768, y: 768, z: 150, color: "blue"},
+			{x: 1024, y: 1024, z: 130, color: "white"},
+		],
+		
+		doors: [
+			{x: 1024, y: 960, z: 32, color: "blue"},
 		],
 		
 		spawn: {

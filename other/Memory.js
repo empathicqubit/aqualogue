@@ -21,7 +21,8 @@ Memory = (function() {
 		
 		if (!data.stages[name]) {
 			data.stages[name] = {
-				keys: {}
+				keys: {},
+				doors: {},
 			};
 		}
 		

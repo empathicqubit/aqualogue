@@ -57,6 +57,12 @@ Level = function(levelName) {
 				placeEntityInGrid(Key(level, key.x, key.y, key.z, index, key.color));
 			}
 		});
+		
+		level.map.doors.forEach(function(door, index) {
+			if (!level.saveData.doors[index]) {
+				placeEntityInGrid(Door(level, door.x, door.y, door.z, index, door.color));
+			}
+		});
 	}
 	
 	level.think = function() {

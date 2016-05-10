@@ -187,7 +187,7 @@ Dolphin = function(level, axis, position, z) {
 		
 		positionOnAxis();
 		
-		if (dolphin.colliding("geometry")) {
+		if (collide()) {
 			dolphin.momentum.x /= -1.5;
 			dolphin.axis.current = oldCurrent;
 			dolphin.axis.position = oldPosition;
@@ -198,7 +198,7 @@ Dolphin = function(level, axis, position, z) {
 	function vMove() {
 		dolphin.position.z += dolphin.momentum.y;
 		
-		if (dolphin.colliding("geometry")) {
+		if (collide()) {
 			dolphin.position.z -= dolphin.momentum.y;
 			dolphin.momentum.y /= -1.5;
 		}
@@ -213,6 +213,24 @@ Dolphin = function(level, axis, position, z) {
 			dolphin.axis.current = transitionList[i];
 			i++;
 		}
+	}
+	
+	function collide() {
+		var block = dolphin.colliding("geometry");
+		
+		if (block && block.door) {
+			var check = Memory.global.keys.indexOf(block.door);
+			
+			if (check != -1) {
+				Memory.global.keys.splice(check, 1);
+				block.position.x = -99999;
+				level.saveData.doors[block.index] = true;
+				
+				return;
+			}
+		}
+		
+		return block;
 	}
 	
 	function positionOnAxis() {
