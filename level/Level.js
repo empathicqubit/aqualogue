@@ -123,6 +123,11 @@ Level = function(levelName) {
 			
 			sprite.visible = false;
 			
+			// If we're too far vertically, don't bother.
+			if (Math.abs(entity.position.z - camera.z) > 700) {
+				return;
+			}
+			
 			// Start with the angle and distance for the entity.
 			var xdist, ydist,
 			    angle, distance;
