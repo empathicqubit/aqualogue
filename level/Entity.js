@@ -32,7 +32,6 @@ Entity = function(level, x, y, z) {
 		
 		entity.activeSprite = anims[name];
 		
-		entity.activeSprite.visible = true;
 		if (entity.activeSprite.play) {
 			entity.activeSprite.gotoAndPlay(0);
 		}
