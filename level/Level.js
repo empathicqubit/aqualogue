@@ -444,10 +444,13 @@ Level = function(levelName) {
 	level.edit = function() {
 		level.editor = true;
 		
-		LEVELEDITORBOX = document.createElement('div');
-		LEVELEDITORBOX.style.backgroundColor = '#CCC';
-		LEVELEDITORBOX.style.minHeight = '100px';
-		document.body.appendChild(LEVELEDITORBOX);
+		if (typeof LEVELEDITORBOX == 'undefined') {
+			LEVELEDITORBOX = document.createElement('div');
+			LEVELEDITORBOX.style.backgroundColor = '#CCC';
+			LEVELEDITORBOX.style.minHeight = '100px';
+			LEVELEDITORBOX.style.whiteSpace = 'pre-wrap';
+			document.body.appendChild(LEVELEDITORBOX);
+		}
 		
 		return level;
 	}
@@ -542,7 +545,7 @@ Level = function(levelName) {
 				z: Math.round(dolphin.position.z)
 			};
 			
-			LEVELEDITORBOX.innerText = JSON.stringify(level.map);
+			LEVELEDITORBOX.innerText = JSON.stringify(level.map, null, "\t");
 		}
 		
 		function pressOrTurbo(key) {
