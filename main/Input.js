@@ -23,8 +23,10 @@ Input = (function() {
 		rocksm: 49, // 1
 		rockmed: 50,
 		rocklg: 51,
-		key: 52,
-		door: 53,
+		rockwd: 52,
+		key: 53,
+		door: 54,
+		transition: 55,
 		remove: 9, // Tab
 		export: 192, // ~
 		redkey: 82, // R

@@ -48,6 +48,8 @@ Level = function(levelName) {
 		
 		dolphin = Dolphin(level, level.map.spawn.axis, level.map.spawn.position, level.map.spawn.z);
 		placeEntityInGrid(dolphin);
+		camera.x = dolphin.position.x;
+		camera.y = dolphin.position.y;
 		initParaloop();
 		
 		level.map.rocks.forEach(function(rock) {
@@ -470,6 +472,9 @@ Level = function(levelName) {
 		}
 		if (pressOrTurbo("rocklg")) {
 			spawnRock("large");
+		}
+		if (pressOrTurbo("rockwd")) {
+			spawnRock("wide");
 		}
 		
 		function spawnRock(size) {
