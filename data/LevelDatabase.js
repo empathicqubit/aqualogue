@@ -34,7 +34,7 @@ LevelDatabase["Test Level"] = {
 		{
 			x: 1280, y: 768,
 			radius: 0,
-			angle: 270,
+			angle: 90,
 			length: 512,
 			
 			left: [1],
@@ -52,7 +52,7 @@ LevelDatabase["Test Level"] = {
 		{
 			x: 1024, y: 1280,
 			radius: 0,
-			angle: 90,
+			angle: 270,
 			length: 512,
 			
 			left: [3],
@@ -125,7 +125,7 @@ LevelDatabase["Intro"] = {
 "x": 11744,
 "y": 11744,
 "radius": 0,
-"angle": 90,
+"angle": 270,
 "length": 8192,
 "left": [
 1
@@ -151,7 +151,7 @@ LevelDatabase["Intro"] = {
 "x": 10720,
 "y": 2528,
 "radius": 0,
-"angle": 0,
+"angle": 180,
 "length": 8192,
 "left": [
 1

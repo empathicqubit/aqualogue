@@ -249,7 +249,7 @@ Dolphin = function(level, axis, position, z) {
 			dolphin.position.x += Math.cos(dolphin.angle) * axis.radius;
 			dolphin.position.y += Math.sin(dolphin.angle) * axis.radius;
 		} else {
-			dolphin.angle = (axis.angle + 90) * Math.PI / 180;
+			dolphin.angle = (axis.angle - 90) * Math.PI / 180;
 			dolphin.position.x -= Math.sin(dolphin.angle) * dolphin.axis.position;
 			dolphin.position.y += Math.cos(dolphin.angle) * dolphin.axis.position;
 		}
