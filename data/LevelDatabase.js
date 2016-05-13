@@ -1,3 +1,6 @@
+// Save point left: {"stage": "Save ","axis": 0,"position": 867,"z": 270,"momx":2,"momy":0}
+// Save point right: {"stage": "Save ","axis": 0,"position": 1501,"z": 270,"momx":-2,"momy":0}
+
 LevelDatabase = {
 	
 blank: {background: {image: "mountains", width: 3072}, axes: [], rocks: [], keys: [], doors: [], transitions: [], spawn: {axis: 0, position: 1, z: 0}},
@@ -3112,7 +3115,14 @@ LevelDatabase["Intro"] = {tint: {rgb: 0xB07030, a: 0.6, effect: "SCREEN"}, music
 }
 };
 
-LevelDatabase["Save 1"] = {tint: {rgb: 0xBB44AA, a: 0.6, effect: "MULTIPLY"}, music: "ocean", save: true,
+LevelDatabase["Save 1"] = {
+"tint": {
+"rgb": 12272810,
+"a": 0.6,
+"effect": "MULTIPLY"
+},
+"music": "ocean",
+"save": true,
 "background": {
 "image": "save",
 "width": 3072
@@ -3490,10 +3500,51 @@ LevelDatabase["Save 1"] = {tint: {rgb: 0xBB44AA, a: 0.6, effect: "MULTIPLY"}, mu
 ],
 "keys": [],
 "doors": [],
-"transitions": [],
+"transitions": [
+{
+"position": {
+"x": 1007.3774970870343,
+"y": 1511.9468454212124,
+"z": 270
+},
+"bbox": {
+"x": 32,
+"y": 32,
+"z": 32
+},
+"destination": {
+"stage": "STAGE",
+"axis": 0,
+"position": 0,
+"z": 0,
+"momx": 0,
+"momy": 0
+}
+},
+{
+"position": {
+"x": 1509.8455531874472,
+"y": 1046.9202716849118,
+"z": 270
+},
+"bbox": {
+"x": 32,
+"y": 32,
+"z": 32
+},
+"destination": {
+"stage": "STAGE",
+"axis": 0,
+"position": 0,
+"z": 0,
+"momx": 0,
+"momy": 0
+}
+}
+],
 "spawn": {
 "axis": 0,
-"position": 915,
+"position": 1536,
 "z": 270
 }
 };

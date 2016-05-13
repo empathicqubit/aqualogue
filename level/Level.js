@@ -108,6 +108,20 @@ Level = function(levelName) {
 			}
 		});
 		
+		level.map.transitions.forEach(function(trans) {
+			var obj = Transition(level, trans.position, trans.bbox, trans.destination);
+			placeEntityInGrid(obj);
+			
+			if (level.editor) {
+				var info = trans;
+				
+				obj.editorremove = function() {
+					level.map.transitions.splice(level.map.rocks.indexOf(info), 1);
+					obj.position.x = -99999;
+				}
+			}
+		});
+		
 		if (tint) {
 			level.stage.addChild(tint);
 		}
@@ -115,6 +129,15 @@ Level = function(levelName) {
 		
 		if (level.map.music && level.map.music != "none" && level.map.music != Music.current) {
 			Music.play(level.map.music);
+		}
+		
+		// Save crystal.
+		if (level.map.save) {
+			var crystal = Entity(level, 1000, 1000, -111);
+			crystal.addSprite("spr", Renderer.sprite("save"));
+			crystal.currentSprite("spr");
+			crystal.save = true;
+			placeEntityInGrid(crystal);
 		}
 	}
 	
@@ -240,6 +263,11 @@ Level = function(levelName) {
 				}
 			} catch (e) {}
 			level.stage.setChildIndex(sprite, index);
+			
+			// Save cheating.
+			if (entity.save) {
+				sprite.scale.set(scrScale*2, scrScale*2);
+			}
 		});
 		
 		// Scroll planes
@@ -588,6 +616,33 @@ Level = function(levelName) {
 			level.map.doors.push(info);
 			
 			placeEntityInGrid(Door(level, info.x, info.y, info.z, level.map.doors.length-1, color));
+		}
+		
+		if (Input.pressed("transition")) {
+			var trans = {
+				position: {
+					x: dolphin.position.x,
+					y: dolphin.position.y,
+					z: dolphin.position.z
+				},
+				bbox: {x: 32, y: 32, z: 32}, destination: {
+				stage: "STAGE",
+				axis: 0,
+				position: 0,
+				z: 0,
+				momx: 0,
+				momy: 0
+			}
+			}
+			var obj = Transition(level, dolphin.position, trans.bbox, trans.destination);
+			placeEntityInGrid(obj);
+			
+			obj.editorremove = function() {
+				level.map.transitions.splice(level.map.rocks.indexOf(trans), 1);
+				obj.position.x = -99999;
+			}
+			
+			level.map.transitions.push(trans);
 		}
 		
 		if (Input.held("remove")) {
