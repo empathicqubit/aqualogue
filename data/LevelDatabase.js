@@ -6,6 +6,9 @@ blank: {background: {image: "mountains", width: 3072}, axes: [], rocks: [], keys
 
 LevelDatabase["Test Level"] = {
 	
+	//tint: {rgb: 0xB05000, a: 0.8, effect: "MULTIPLY"}, // Final boss tint?
+	//tint: {rgb: 0xB07030, a: 0.6, effect: "SCREEN"}, // Intro tint.
+	
 	background: {
 		image: "mountains",
 		width: 3072,
@@ -115,7 +118,7 @@ LevelDatabase["Test Level"] = {
 	
 };
 
-LevelDatabase["Intro"] = {
+LevelDatabase["Intro"] = {tint: {rgb: 0xB07030, a: 0.6, effect: "SCREEN"},
 "background": {
 "image": "mountains",
 "width": 3072
@@ -3110,7 +3113,7 @@ LevelDatabase["Intro"] = {
 };
 
 // OFFSET: +1 green key (be aware of 1 red + 1 blue used)
-LevelDatabase["Ocean 1"] = {
+LevelDatabase["Ocean 1"] = {tint: {rgb: 0x442244, a: 0.4, effect: "NORMAL"},
 "background": {
 "image": "mountains",
 "width": 3072

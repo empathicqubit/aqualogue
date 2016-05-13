@@ -27,6 +27,30 @@ Level = function(levelName) {
 		));
 	}
 	
+	// Constant level tint
+	var tint;
+	if (level.map.tint) {
+		tint = new PIXI.Graphics();
+		tint.beginFill(level.map.tint.rgb || 0);
+		tint.drawRect(0, 0, 8, 8);
+		tint.endFill();
+		tint.alpha = level.map.tint.a || 0.25;
+		tint.blendMode = PIXI.BLEND_MODES[level.map.tint.effect] || PIXI.BLEND_MODES.NORMAL;
+		tint.scale.set(500/8, 280/8);
+	}
+	
+	// Wipe in/out graphic
+	var wipe = level.wipe = new PIXI.Graphics();
+	wipe.beginFill(0x000000);
+	wipe.drawPolygon([
+		new PIXI.Point(0, 0),
+		new PIXI.Point(-10, 28),
+		new PIXI.Point(53, 28),
+		new PIXI.Point(63, 0)
+	]);
+	wipe.endFill();
+	wipe.scale.set(10, 10);
+	
 	// A set of blocks that entities are contained in.
 	// Blocks two grid spaces away (in a square, corners excluded) from the camera
 	// are thunk and rendered in a frame.
@@ -77,6 +101,11 @@ Level = function(levelName) {
 				placeEntityInGrid(Door(level, door.x, door.y, door.z, index, door.color));
 			}
 		});
+		
+		if (tint) {
+			level.stage.addChild(tint);
+		}
+		level.stage.addChild(wipe);
 	}
 	
 	level.think = function() {
@@ -93,6 +122,10 @@ Level = function(levelName) {
 		
 		if (level.editor) {
 			levelEditor();
+		}
+		
+		if (wipe.x < 600) {
+			wipe.x += 15;
 		}
 	}
 	
