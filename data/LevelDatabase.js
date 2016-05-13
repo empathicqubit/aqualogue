@@ -3542,12 +3542,7 @@ LevelDatabase["Save 1"] = {
 "z": 32
 },
 "destination": {
-"stage": "STAGE",
-"axis": 0,
-"position": 0,
-"z": 0,
-"momx": 0,
-"momy": 0
+"stage": "Ocean 1","axis": 0,"position": 3377,"z": 454,"momx": 2,"momy": 0
 }
 }
 ],
@@ -3821,12 +3816,6 @@ LevelDatabase["Ocean 1"] = {
 "x": 4599,
 "y": 4466,
 "z": 48,
-"type": "medium"
-},
-{
-"x": 4631,
-"y": 4457,
-"z": 80,
 "type": "medium"
 },
 {
@@ -5706,6 +5695,12 @@ LevelDatabase["Ocean 1"] = {
 "y": 3118,
 "z": 406,
 "type": "wide"
+},
+{
+"x": 4630,
+"y": 4457,
+"z": 78,
+"type": "small"
 }
 ],
 "keys": [
@@ -5797,12 +5792,12 @@ LevelDatabase["Ocean 1"] = {
 "z": 32
 },
 "destination": {
-"stage": "STAGE",
+"stage": "Ocean 2",
 "axis": 0,
-"position": 0,
-"z": 0,
+"position": 1269,
+"z": 2885,
 "momx": 0,
-"momy": 0
+"momy": 2
 }
 },
 {
@@ -5817,11 +5812,11 @@ LevelDatabase["Ocean 1"] = {
 "z": 32
 },
 "destination": {
-"stage": "STAGE",
-"axis": 0,
-"position": 0,
-"z": 0,
-"momx": 0,
+"stage": "Ocean 3",
+"axis": 3,
+"position": 420,
+"z": 523,
+"momx": 2,
 "momy": 0
 }
 },
@@ -5857,19 +5852,19 @@ LevelDatabase["Ocean 1"] = {
 "z": 32
 },
 "destination": {
-"stage": "STAGE",
+"stage": "Save 1",
 "axis": 0,
-"position": 0,
-"z": 0,
-"momx": 0,
+"position": 1501,
+"z": 270,
+"momx": -2,
 "momy": 0
 }
 }
 ],
 "spawn": {
-"axis": 0,
-"position": 3391,
-"z": 450
+"axis": 3,
+"position": 153,
+"z": 116
 }
 };
 
@@ -8384,7 +8379,23 @@ LevelDatabase["Ocean 2"] = {tint: {rgb: 0x442244, a: 0.4, effect: "NORMAL"},
 "color": "blue"
 }
 ],
-"transitions": [],
+"transitions": [
+{
+"position": {
+"x": 4217.585109760963,
+"y": 3765.3583157017715,
+"z": 2824.793312539402
+},
+"bbox": {
+"x": 32,
+"y": 32,
+"z": 32
+},
+"destination": {
+"stage": "Ocean 1","axis": 3,"position": 608,"z": 303,"momx": 0,"momy": -2
+}
+}
+],
 "spawn": {
 "axis": 0,
 "position": 1314,
@@ -10294,7 +10305,18 @@ LevelDatabase["Ocean 3"] = {
 "color": "red"
 }
 ],
-"transitions": [],
+"transitions": [{
+"position": {
+"x": 1611.3459267286648,
+"y": 308,
+"z": 523
+},
+"bbox": {
+"x": 32,
+"y": 32,
+"z": 32
+},
+"destination": {"stage": "Ocean 1","axis": 5,"position": 429,"z": 273, "momx": -2,"momy": 0}}],
 "spawn": {
 "axis": 3,
 "position": 370,
