@@ -137,6 +137,18 @@ Level = function(levelName) {
 		if (wipe.x < 600) {
 			wipe.x += 15;
 		}
+		
+		if (level.map.save && !level.saved && dolphin.position.z < -30 && dolphin.momentum.y > 0) {
+			level.saved = true;
+			
+			if (level.ticCount > 10) {
+				Memory.storeDolphin(dolphin.axis.current, dolphin.axis.position,
+					dolphin.position.z, dolphin.momentum.x, dolphin.momentum.y);
+				Memory.save();
+				
+				level.stage.addChild(Renderer.text("Your adventure has been saved.", 140, 200));
+			}
+		}
 	}
 	
 	function cameraThinker() {
