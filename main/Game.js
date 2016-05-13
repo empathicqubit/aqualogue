@@ -6,6 +6,8 @@ Game = (function() {
 	Game.init = function(callback) {
 		Renderer.init(initScene);
 		
+		Music.init();
+		
 		function initScene() {
 			// Run callback to set the inital scene.
 			callback();
@@ -36,6 +38,7 @@ Game = (function() {
 	function flipScenes() {
 		if (currentScene != incomingScene) {
 			currentScene.end();
+			currentScene.stage.destroy();
 			incomingScene.init();
 			currentScene = incomingScene;
 		}

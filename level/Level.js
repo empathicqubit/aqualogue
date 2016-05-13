@@ -106,6 +106,10 @@ Level = function(levelName) {
 			level.stage.addChild(tint);
 		}
 		level.stage.addChild(wipe);
+		
+		if (level.map.music && level.map.music != "none" && level.map.music != Music.current) {
+			Music.play(level.map.music);
+		}
 	}
 	
 	level.think = function() {
