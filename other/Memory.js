@@ -64,8 +64,12 @@ Memory = (function() {
 		}
 		
 		if (gotomap) {
-			Game.setScene(Level(data.lastStage));
+			Memory.loadStage();
 		}
+	}
+	
+	Memory.loadStage = function() {
+		Game.setScene(Level(data.lastStage));
 	}
 	
 	return Memory;

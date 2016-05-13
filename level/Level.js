@@ -136,6 +136,10 @@ Level = function(levelName) {
 		
 		if (wipe.x < 600) {
 			wipe.x += 15;
+			
+			if (wipe.x > -30 && wipe.newlevel) {
+				Memory.loadStage();
+			}
 		}
 		
 		if (level.map.save && !level.saved && dolphin.position.z < -30 && dolphin.momentum.y > 0) {
@@ -149,6 +153,11 @@ Level = function(levelName) {
 				level.stage.addChild(Renderer.text("Your adventure has been saved.", 140, 200));
 			}
 		}
+	}
+	
+	level.moveLevels = function() {
+		wipe.x = -630;
+		wipe.newlevel = true;
 	}
 	
 	function cameraThinker() {
