@@ -42,6 +42,12 @@ Renderer = (function() {
 		return anim;
 	}
 	
+	Renderer.text = function(txt, x, y) {
+		var txt = new PIXI.extras.BitmapText(txt, {font: 'TYPE_FONT'});
+		txt.position.set(x, y);
+		return txt;
+	}
+	
 	Renderer.show = function(stage) {
 		renderer.render(stage);
 	}
