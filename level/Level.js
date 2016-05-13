@@ -70,7 +70,13 @@ Level = function(levelName) {
 			level.stage.addChild(p.plane);
 		});
 		
-		dolphin = Dolphin(level, level.map.spawn.axis, level.map.spawn.position, level.map.spawn.z);
+		var spawn = Memory.getDolphin() || level.map.spawn;
+		dolphin = Dolphin(level, spawn.axis, spawn.position, spawn.z);
+		if (spawn.momx || spawn.momy) {
+			dolphin.momentum.x = spawn.momx;
+			dolphin.momentum.y = spawn.momy;
+		}
+		
 		placeEntityInGrid(dolphin);
 		camera.x = dolphin.position.x;
 		camera.y = dolphin.position.y;
@@ -592,7 +598,7 @@ Level = function(levelName) {
 				z: Math.round(dolphin.position.z)
 			};
 			
-			LEVELEDITORBOX.innerText = JSON.stringify(level.map, null, "\t");
+			LEVELEDITORBOX.innerText = JSON.stringify(Input.held("redkey") ? level.map.spawn : level.map, null, "\t");
 		}
 		
 		function pressOrTurbo(key) {
