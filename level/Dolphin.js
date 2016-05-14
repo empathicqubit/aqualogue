@@ -120,7 +120,7 @@ Dolphin = function(level, axis, position, z) {
 		moveY = Input.held("up") ? -1 : Input.held("down") ? 1 : 0;
 		
 		dolphin.momentum.x += moveX*moveStr;
-		dolphin.momentum.y += moveY*moveStr + 0.001;
+		dolphin.momentum.y += moveY*moveStr + (level.editor ? 0 : 0.001);
 		
 		dolphin.momentum.x *= 0.99;
 		dolphin.momentum.y *= 0.99;
