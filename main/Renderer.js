@@ -21,6 +21,8 @@ Renderer = (function() {
 			"assets/tiles/waterback.png",
 			
 			"assets/tiles/bg-mountains.png",
+			"assets/tiles/bg-save.png",
+			"assets/tiles/bg-cavern.png",
 			
 			"assets/type.fnt"
 		]).load(next);
