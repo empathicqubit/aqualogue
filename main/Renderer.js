@@ -10,6 +10,10 @@ Renderer = (function() {
 			resolution: 1
 		});
 		
+		document.addEventListener("unload", function() {
+			renderer.destroy(true);
+		});
+		
 		PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 		
 		document.body.appendChild(renderer.view);
