@@ -173,7 +173,29 @@ Level = function(levelName) {
 					dolphin.position.z, dolphin.momentum.x, dolphin.momentum.y);
 				Memory.save();
 				
-				level.stage.addChild(Renderer.text("Your adventure has been saved.", 140, 200));
+				var text = Renderer.text("Your adventure has been saved.", 140, 200)
+				level.stage.addChild(text);
+				
+				var fade = new PIXI.Graphics;
+				fade.beginFill(0xFFFFFF);
+				fade.drawRect(0, 0, 500, 280);
+				fade.endFill();
+				
+				function fadeout() {
+					fade.alpha -= 0.01;
+					
+					if (fade.alpha > 0) {
+						window.setTimeout(fadeout, 20);
+					} else {
+						window.setTimeout(function() {
+							level.stage.removeChild(text);
+						}, 2000);
+					}
+				}
+				
+				fadeout();
+				
+				level.stage.addChild(fade);
 			}
 		}
 	}
