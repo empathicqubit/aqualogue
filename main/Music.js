@@ -42,6 +42,7 @@ Music = (function() {
 			if (currentMusic.volume <= 0) {
 				currentMusic.stop();
 				currentMusic.destroy();
+				currentMusic = undefined;
 				
 				return;
 			}

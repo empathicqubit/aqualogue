@@ -24,7 +24,7 @@ Transition = function(level, position, bbox, destination) {
 			
 			var stage = LevelDatabase[destination.stage];
 			if (stage.music && stage.music != Music.current) {
-				Music.fade(666);
+				Music.fadeout(666);
 			}
 		}
 	}
