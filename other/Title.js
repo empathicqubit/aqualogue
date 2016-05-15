@@ -121,7 +121,7 @@ Title = function() {
 			
 			if (file && file.global.time) {
 				playtime = Math.floor(file.global.time / 3600) + ":"
-					+ (Math.floor(file.global.time / 600) % 10) + ""
+					+ (Math.floor(file.global.time / 600) % 6) + ""
 					+ (Math.floor(file.global.time / 60) % 10);
 			}
 			
