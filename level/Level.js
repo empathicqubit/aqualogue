@@ -537,6 +537,7 @@ Level = function(levelName) {
 			obj.position.x = -99999;
 			obj.position.y = -99999;
 			obj.position.z = -99999;
+			obj.activeSprite.visible = false;
 		});
 		attractCollectiblesToDolphin(minX, minY, minZ, dist*dist);
 	}

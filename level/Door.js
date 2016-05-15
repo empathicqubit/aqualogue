@@ -20,6 +20,7 @@ Door = function(level, x, y, z, index, color) {
 		door.editorremove = function() {
 			level.map.doors.splice(level.map.doors.indexOf(info), 1);
 			door.position.x = -99999;
+			door.activeSprite.visible = false;
 		}
 	}
 	

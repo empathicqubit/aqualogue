@@ -15,6 +15,7 @@ Key = function(level, x, y, z, index, color) {
 		key.editorremove = function() {
 			level.map.keys.splice(level.map.keys.indexOf(info), 1);
 			key.position.x = -99999;
+			key.activeSprite.visible = false;
 		}
 	}
 	
