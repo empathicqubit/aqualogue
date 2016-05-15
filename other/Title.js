@@ -44,9 +44,9 @@ Title = function() {
 		if (!menu) {
 			if (title.ticCount == 700 || Input.pressed("accept")) {
 				menu = [
-					Renderer.text("New Game", 200, 170),
-					Renderer.text("Load Game", 200, 190),
-					Renderer.text("Slot: " + Memory.slot, 215, 220),
+					Renderer.text("New Game", 210, 170),
+					Renderer.text("Load Game", 210, 190),
+					Renderer.text("Slot: " + Memory.slot, 190, 220),
 				];
 				
 				menu.forEach(function(m) {
