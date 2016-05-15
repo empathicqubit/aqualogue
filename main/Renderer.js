@@ -54,6 +54,25 @@ Renderer = (function() {
 		return txt;
 	}
 	
+	Renderer.typewriterText = function(text, x, y) {
+		var txt = Renderer.text("", x, y);
+		
+		var spot = 0;
+		type();
+		
+		return txt;
+		
+		function type() {
+			spot++;
+			
+			txt.text = text.substring(0, spot);
+			
+			if (spot < text.length) {
+				window.setTimeout(type, 40);
+			}
+		}
+	}
+	
 	Renderer.show = function(stage) {
 		renderer.render(stage);
 	}
