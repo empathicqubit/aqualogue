@@ -64,6 +64,21 @@ Dolphin = function(level, axis, position, z) {
 			collectible.think = collectible.attract;
 			collectible.attractTarget = dolphin;
 		}
+		
+		if (dolphin.colliding("tentacle")) {
+			dolphin.momentum.x *= -1.3;
+			dolphin.momentum.y *= -1.3;
+			
+			while (dolphin.momentum.x * dolphin.momentum.x + dolphin.momentum.y * dolphin.momentum.y > 1000) {
+				dolphin.momentum.x *= 0.99;
+				dolphin.momentum.y *= 0.99;
+			}
+			
+			while (dolphin.colliding("tentacle")) {
+				axisMove();
+				vMove();
+			}
+		}
 	};
 	
 	dolphin.fliptimer = 0;

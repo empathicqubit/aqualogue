@@ -25,6 +25,11 @@ cavern_blank: {background: {image: "cavern", width: 3072}, tint: {rgb: 0xC030C0,
 
 };
 
+LevelDatabase["Boss Test"] = {music: "boss", background: {image: "cavern", width: 3072}, tint: {rgb: 0xB05000, a: 0.8, effect: "MULTIPLY"}, 
+axes: [{x: 0, y: 0, radius: -512, angle: 0, length: 360, left: [0], right: [0]}],
+boss: 1,
+rocks: [], keys: [], doors: [], transitions: [], spawn: {axis: 0, position: 1, z: 0}};
+
 LevelDatabase["Test Level"] = {
 	
 	//tint: {rgb: 0xB05000, a: 0.8, effect: "MULTIPLY"}, // Final boss tint?

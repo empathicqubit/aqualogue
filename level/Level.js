@@ -39,6 +39,9 @@ Level = function(levelName) {
 		tint.scale.set(500/8, 280/8);
 	}
 	
+	// Boss
+	var boss;
+	
 	// Wipe in/out graphic
 	var wipe = level.wipe = new PIXI.Graphics();
 	wipe.beginFill(0x000000);
@@ -138,6 +141,24 @@ Level = function(levelName) {
 			crystal.currentSprite("spr");
 			crystal.save = true;
 			placeEntityInGrid(crystal);
+		}
+		
+		// Boss.
+		if (level.map.boss) {
+			boss = Boss(
+				level,
+				dolphin.position.x + Math.cos(dolphin.angle) * 250,
+				dolphin.position.y + Math.sin(dolphin.angle) * 250,
+				dolphin.position.z,
+				level.map.boss,
+				dolphin
+			);
+			placeEntityInGrid(boss);
+			boss.arms.forEach(function(arm) {
+				arm.forEach(function(piece) {
+					placeEntityInGrid(piece);
+				});
+			});
 		}
 	}
 	
