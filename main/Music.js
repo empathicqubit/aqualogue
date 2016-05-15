@@ -9,6 +9,8 @@ Music = (function() {
 		"boss",
 	];
 	
+	Music.volume = 0.5;
+	
 	Music.init = function() {
 		musics.forEach(function(m) {
 			S.registerSound("assets/music/" + m + ".ogg", "M_" + m);
@@ -25,6 +27,7 @@ Music = (function() {
 		
 		Music.current = name;
 		currentMusic = S.play("M_" + name, {interrupt: createjs.Sound.INTERRUPT_ANY, loop: noloop ? 0 : -1});
+		currentMusic.volume = Music.volume;
 	}
 	
 	Music.fadeout = function(time) {
@@ -49,7 +52,7 @@ Music = (function() {
 				return;
 			}
 			
-			currentMusic.volume -= 1/16;
+			currentMusic.volume -= Music.volume/16;
 			
 			window.setTimeout(fade, time/16);
 		}
