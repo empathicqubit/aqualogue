@@ -117,7 +117,16 @@ Title = function() {
 				"Save 5": "Closure",
 			};
 			
-			menu[2].text = "Slot: " + Memory.slot + " - " + (file ? list[file.lastStage] : "EMPTY");
+			var playtime = "0:00";
+			
+			if (file && file.global.time) {
+				playtime = Math.floor(file.global.time / 3600) + ":"
+					+ (Math.floor(file.global.time / 600) % 10) + ""
+					+ (Math.floor(file.global.time / 60) % 10);
+			}
+			
+			menu[2].text = "Slot: " + Memory.slot + " - " + (file ? list[file.lastStage] : "EMPTY")
+				+ " (" + playtime + ")";
 		}
 	}
 	

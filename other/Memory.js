@@ -10,6 +10,7 @@ Memory = (function() {
 			
 			global: {
 				keys: [],
+				time: 0,
 			},
 		};
 		

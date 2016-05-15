@@ -28,6 +28,7 @@ Game = (function() {
 		requestAnimationFrame(gameLoop);
 		
 		Input.refresh();
+		Memory.global.time++;
 		
 		flipScenes();
 		currentScene.ticCount++;
