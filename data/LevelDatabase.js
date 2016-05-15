@@ -22941,7 +22941,13 @@ LevelDatabase["Boss 2"] = {
 			"y": 894,
 			"z": -53,
 			"color": "yellow"
-		}
+		},
+{
+"x": 1467,
+"y": 256,
+"z": -91,
+"color": "white"
+}
 	],
 	"doors": [
 		{
