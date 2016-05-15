@@ -3883,6 +3883,7 @@ LevelDatabase["Ocean 1"] = {
 "image": "mountains",
 "width": 3072
 },
+	music:"new-ocean",
 "axes": [
 {
 "x": 2000,
@@ -10653,6 +10654,7 @@ LevelDatabase["Ocean 4"] = {
 		"image": "mountains",
 		"width": 3072
 	},
+	music:"new-ocean",
 	"axes": [
 		{
 			"x": 0,
@@ -13587,6 +13589,7 @@ LevelDatabase["Cavern 1"] = {
 		"a": 0.7,
 		"effect": "MULTIPLY"
 	},
+	music: "cavern",
 	"axes": [
 		{
 			"x": 1024,

@@ -4,6 +4,8 @@ Music = (function() {
 	
 	var musics = [
 		"ocean",
+		"new-ocean",
+		"cavern",
 		"boss",
 	];
 	
