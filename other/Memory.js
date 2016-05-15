@@ -68,6 +68,10 @@ Memory = (function() {
 		}
 	}
 	
+	Memory.file = function(slot) {
+		return JSON.parse(window.localStorage.getItem("dolphin-save-" + slot));
+	}
+	
 	Memory.loadStage = function() {
 		Game.setScene(Level(data.lastStage));
 	}
