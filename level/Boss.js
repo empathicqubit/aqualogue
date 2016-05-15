@@ -7,7 +7,7 @@ Boss = function(level, x, y, z, mode, dolphin) {
 	};
 	for (var i = 0; i < 4; i++) {
 		var arm = [];
-		for (var j = 0; j < 10; j++) {
+		for (var j = 0; j < 15; j++) {
 			var tentacle = Entity(level, x, y, z);
 			
 			tentacle.bbox = armBbox;
@@ -68,7 +68,7 @@ Boss = function(level, x, y, z, mode, dolphin) {
 			
 			dist = Math.sqrt(xdist * xdist + ydist * ydist + zdist * zdist);
 			
-			if (dist > 34) {
+			if (dist > 19) {
 				one.momentum.x += xdist/16;
 				one.momentum.y += ydist/16;
 				one.momentum.z += zdist/16;
