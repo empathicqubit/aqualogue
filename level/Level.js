@@ -86,6 +86,10 @@ Level = function(levelName) {
 		initParaloop();
 		
 		level.map.rocks.forEach(function(rock) {
+			if (rock.bossonly && Memory.global.bossClear) {
+				return; // Don't spawn this rock any more.
+			}
+			
 			var obj = Rock(level, rock.x, rock.y, rock.z, rock.type);
 			placeEntityInGrid(obj);
 			
@@ -144,7 +148,7 @@ Level = function(levelName) {
 		}
 		
 		// Boss.
-		if (level.map.boss) {
+		if (level.map.boss && !Memory.global.bossClear) {
 			boss = Boss(
 				level,
 				dolphin.position.x + Math.cos(dolphin.angle) * 250,
