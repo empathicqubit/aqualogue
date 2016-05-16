@@ -159,6 +159,20 @@ Level = function(levelName) {
 					placeEntityInGrid(piece);
 				});
 			});
+			
+			var texts = {
+				"Boss 1": "      THIS IS THE BEGINNING OF YOUR END.",
+				"Boss 2": "           GIVE UP! YOUR KINGDOM IS MINE.",
+				"Boss 3": "                       ABANDON HOPE.",
+			};
+			
+			var t = Renderer.typewriterText(texts[levelName] || "", 60, 220);
+			level.stage.addChild(t);
+			t.tint = 0xFF0000;
+			
+			window.setTimeout(function() {
+				level.stage.removeChild(t);
+			}, 8000);
 		}
 	}
 	
