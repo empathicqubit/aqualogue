@@ -27,6 +27,7 @@ Renderer = (function() {
 			"assets/tiles/bg-mountains.png",
 			"assets/tiles/bg-save.png",
 			"assets/tiles/bg-cavern.png",
+			"assets/tiles/bg-boss.png",
 			
 			"assets/type.fnt"
 		]).load(next);
@@ -57,17 +58,17 @@ Renderer = (function() {
 	Renderer.typewriterText = function(text, x, y) {
 		var txt = Renderer.text("", x, y);
 		
-		var spot = 0;
+		txt.spot = 0;
 		type();
 		
 		return txt;
 		
 		function type() {
-			spot++;
+			txt.spot++;
 			
-			txt.text = text.substring(0, spot);
+			txt.text = text.substring(0, txt.spot);
 			
-			if (spot < text.length) {
+			if (txt.spot < text.length) {
 				window.setTimeout(type, 40);
 			}
 		}
