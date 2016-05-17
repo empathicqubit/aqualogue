@@ -147,6 +147,16 @@ Level = function(levelName) {
 			placeEntityInGrid(crystal);
 		}
 		
+		// Rescuee.
+		if (RescueDatabase[levelName] && !level.saveData.rescued) {
+			var r = Rescuee(level, RescueDatabase[levelName], dolphin);
+			placeEntityInGrid(r);
+			if (r.bubble) {
+				placeEntityInGrid(r.bubble);
+				placeEntityInGrid(r.barrier);
+			}
+		}
+		
 		// Boss.
 		if (level.map.boss && !Memory.global.bossClear) {
 			boss = Boss(
