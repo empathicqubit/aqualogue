@@ -38,6 +38,7 @@ Music = (function() {
 		currentMusic.stop();
 		currentMusic.destroy();
 		currentMusic = undefined;
+		Music.current = undefined;
 	}
 	
 	Music.fadeout = function(time) {
@@ -58,6 +59,7 @@ Music = (function() {
 				currentMusic.stop();
 				currentMusic.destroy();
 				currentMusic = undefined;
+				Music.current = undefined;
 				
 				return;
 			}

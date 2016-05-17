@@ -134,7 +134,9 @@ Level = function(levelName) {
 		}
 		level.stage.addChild(wipe);
 		
-		if (level.map.music && level.map.music != "none" && level.map.music != Music.current) {
+		if (level.map.music && level.map.music != "none" && level.map.music != Music.current
+			&& !(level.map.music == "boss" && Memory.global.bossClear)
+		) {
 			Music.play(level.map.music);
 		}
 		
@@ -210,7 +212,12 @@ Level = function(levelName) {
 			wipe.x += 15;
 			
 			if (wipe.x > -30 && wipe.newlevel) {
-				Memory.loadStage();
+				if (Memory.stage() == "Boss 3" && Memory.global.bossClear) {
+					Memory.storeDolphin(0, 200, -800, 0, -1);
+					Game.setScene(Level("Ending"));
+				} else {
+					Memory.loadStage();
+				}
 			}
 		}
 		
