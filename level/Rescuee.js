@@ -48,8 +48,10 @@ Rescuee = function(level, data, dolphin) {
 		zd = dolphin.position.z - data.position.z;
 		
 		if (xd * xd + yd * yd + zd * zd < 40*40) {
-			rescuee.bubble.position.x = -99999;
-			rescuee.bubble.activeSprite.visible = false;
+			if (rescuee.bubble) {
+				rescuee.bubble.position.x = -99999;
+				rescuee.bubble.activeSprite.visible = false;
+			}
 			
 			rescuee.think = cutscene;
 			
@@ -87,7 +89,7 @@ Rescuee = function(level, data, dolphin) {
 			if (line) {
 				text = Renderer.typewriterText(line, 30, 220);
 				level.stage.addChild(text);
-			} else {
+			} else if (rescuee.barrier) {
 				rescuee.barrier.position.x = -99999;
 				rescuee.barrier.activeSprite.visible = false;
 				rescuee.barrier.think = undefined;

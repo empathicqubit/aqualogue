@@ -36,3 +36,15 @@ RescueDatabase["Save 3"] = {
 		"Do not let him bring harm to you.",
 	]
 };
+
+RescueDatabase["Ending"] = {
+	sprite: "gf",
+	dead: "you betcha",
+	position: { 
+			"x": 626,
+			"y": 0,
+			"z": 209 },
+	lines: [
+		".....",
+	]
+};
