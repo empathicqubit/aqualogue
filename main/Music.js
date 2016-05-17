@@ -30,6 +30,16 @@ Music = (function() {
 		currentMusic.volume = Music.volume;
 	}
 	
+	Music.stop = function() {
+		if (!currentMusic) {
+			return;
+		}
+		
+		currentMusic.stop();
+		currentMusic.destroy();
+		currentMusic = undefined;
+	}
+	
 	Music.fadeout = function(time) {
 		if (!currentMusic) {
 			return;
