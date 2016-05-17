@@ -89,45 +89,93 @@ Boss = function(level, x, y, z, mode, dolphin) {
 	}
 	
 	boss.think = function() {
-		var momx = dolphin.position.x + Math.cos(dolphin.angle) * 250 - boss.position.x;
-		var momy = dolphin.position.y + Math.sin(dolphin.angle) * 250 - boss.position.y;
-		var momz = dolphin.position.z - boss.position.z;
-		momx /= 16;
-		momy /= 16;
-		momz /= 16;
+		if (!Memory.global.bossClear) {
+			var momx = dolphin.position.x + Math.cos(dolphin.angle) * 250 - boss.position.x;
+			var momy = dolphin.position.y + Math.sin(dolphin.angle) * 250 - boss.position.y;
+			var momz = dolphin.position.z - boss.position.z;
+			momx /= 16;
+			momy /= 16;
+			momz /= 16;
 		
-		boss.position.x += momx;
-		boss.position.y += momy;
-		boss.position.z += momz;
-		
-		var offset = level.ticCount;
-		
-		targets.forEach(function(t) {
-			offset += 90;
-			t.stick--;
-			if (t.stick < -80) {
-				t.stick = Math.floor(Math.random() * 100 + 160);
-			} else if (t.stick == 0) {
-				var xoffs = -Math.sin(dolphin.angle) * Math.cos(dolphin.activeSprite.rotation) * 70;
-				var yoffs = Math.cos(dolphin.angle) * Math.cos(dolphin.activeSprite.rotation) * 70;
-				var zoffs = Math.sin(dolphin.activeSprite.rotation) * 70;
-				
-				t.x = boss.position.x + (dolphin.position.x + xoffs - boss.position.x) * 2;
-				t.y = boss.position.y + (dolphin.position.y + yoffs - boss.position.y) * 2;
-				t.z = boss.position.z + (dolphin.position.z + zoffs - boss.position.z) * 2;
-			} else if (t.stick > 0) {
-				momx = boss.position.x + Math.cos(offset*Math.PI/180) * 150 - t.x;
-				momy = boss.position.y + Math.sin(offset*Math.PI/180) * 150 - t.y;
-				momz = boss.position.z - t.z;
-				
-				t.x += momx/20;
-				t.y += momy/20;
-				t.z += momz/20;
-			}
-		});
+			boss.position.x += momx;
+			boss.position.y += momy;
+			boss.position.z += momz;
+			
+			var offset = level.ticCount;
+			
+			targets.forEach(function(t) {
+				offset += 90;
+				t.stick--;
+				if (t.stick < -80) {
+					t.stick = Math.floor(Math.random() * 100 + 160);
+				} else if (t.stick == 0) {
+					var xoffs = -Math.sin(dolphin.angle) * Math.cos(dolphin.activeSprite.rotation) * 70;
+					var yoffs = Math.cos(dolphin.angle) * Math.cos(dolphin.activeSprite.rotation) * 70;
+					var zoffs = Math.sin(dolphin.activeSprite.rotation) * 70;
+					
+					t.x = boss.position.x + (dolphin.position.x + xoffs - boss.position.x) * 2;
+					t.y = boss.position.y + (dolphin.position.y + yoffs - boss.position.y) * 2;
+					t.z = boss.position.z + (dolphin.position.z + zoffs - boss.position.z) * 2;
+				} else if (t.stick > 0) {
+					momx = boss.position.x + Math.cos(offset*Math.PI/180) * 150 - t.x;
+					momy = boss.position.y + Math.sin(offset*Math.PI/180) * 150 - t.y;
+					momz = boss.position.z - t.z;
+					
+					t.x += momx/20;
+					t.y += momy/20;
+					t.z += momz/20;
+				}
+			});
+		}
 		
 		for (var i = 0; i < 4; i++) {
 			positionArm(arms[i], targets[i]);
+		}
+	}
+	
+	var flash;
+	
+	boss.finish = function() {
+		flash = new PIXI.Graphics();
+		flash.beginFill(0xFFFFFF);
+		flash.drawRect(0, 0, 500, 280);
+		flash.endFill();
+		level.stage.addChildAt(flash, 124);
+		
+		flash.timer = 0;
+		doFlash();
+		
+		var text = Renderer.typewriterText("N... N..... NO!", 180, 220);
+		text.tint = 0xFF00000;
+		level.stage.addChild(text);
+		
+		window.setTimeout(function() {
+			level.stage.removeChild(text);
+			text = Renderer.typewriterText("YOUR K-KINGDOM IS-", 160, 220);
+			text.tint = 0xFF00000;
+			level.stage.addChild(text);
+		}, 3500);
+		
+		window.setTimeout(function() {
+			level.stage.removeChild(text);
+		}, 7000);
+		
+		window.setTimeout(function() {
+			Memory.stage("Ending");
+			Memory.storeDolphin(0, 200, -800, 0, -1);
+			level.moveLevels();
+		}, 10000);
+	}
+	
+	function doFlash() {
+		var manager = flash.timer % 50;
+		
+		flash.timer++;
+		
+		flash.alpha = 1-manager/14;
+		
+		if (flash.timer < 251) {
+			window.setTimeout(doFlash, 30);
 		}
 	}
 	

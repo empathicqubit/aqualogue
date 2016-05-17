@@ -23419,12 +23419,12 @@ LevelDatabase["Boss 2"] = {
 				"z": 3200
 			},
 			"destination": {
-				"stage": "STAGE",
+				"stage": "Boss 3",
 				"axis": 0,
 				"position": 0,
-				"z": 0,
-				"momx": 0,
-				"momy": 0
+				"z": -100,
+				"momx": 5,
+				"momy": 1
 			}
 		}
 	],
@@ -23435,4 +23435,8 @@ LevelDatabase["Boss 2"] = {
 	}
 };
 
+LevelDatabase["Boss 3"] = {music: "boss", background: {image: "boss", width: 3072}, tint: {rgb: 0xB05000, a: 0.8, effect: "MULTIPLY"}, 
+axes: [{x: 0, y: 0, radius: -352, angle: 0, length: 360, left: [0], right: [0]}],
+boss: 1,
+rocks: [], keys: [], doors: [], transitions: [], spawn: {axis: 0, position: 1, z: 0}};
 //

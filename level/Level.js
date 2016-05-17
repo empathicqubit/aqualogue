@@ -245,6 +245,11 @@ Level = function(levelName) {
 	}
 	
 	function cameraThinker() {
+		if (camera.boss) {
+			camera.angle = Math.atan2(boss.position.y - camera.y, boss.position.x - camera.x);
+			return;
+		}
+		
 		// Camera thinker.
 		var targetX, targetY;
 		
@@ -558,6 +563,17 @@ Level = function(levelName) {
 			obj.activeSprite.visible = false;
 		});
 		attractCollectiblesToDolphin(minX, minY, minZ, dist*dist);
+		
+		// Boss cheating.
+		if (levelName == "Boss 3" && Math.abs(minX) < 64 && Math.abs(minY) < 64 && !Memory.global.bossClear) {
+			Music.stop();
+			
+			camera.boss = true;
+			
+			Memory.global.bossClear = true;
+			
+			boss.finish();
+		}
 	}
 	
 	function attractCollectiblesToDolphin(x, y, z, sqdist) {
