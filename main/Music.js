@@ -6,6 +6,7 @@ Music = (function() {
 		"ocean",
 		"new-ocean",
 		"cavern",
+		"preboss",
 		"boss",
 		"ending",
 	];

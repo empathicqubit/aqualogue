@@ -19,11 +19,12 @@ CutsceneDatabase.intro = {
 CutsceneDatabase.boss = {
 	music: "preboss",
 	lines: [
-		{pic: "boss1", "text": "HEHEHE... SO YOU\nDECIDED TO SHOW UP\nAFTER ALL, I SEE."},
-		{pic: "boss1", "text": "UNFORTUNATELY FOR\nYOU, YOU'RE TOO LATE.\nTHE PRINCESS IS MINE."},
-		{pic: "boss2", "text": "AND NONE OF YOU\nFILTHY SEA CREATURES\nCAN SAVE HER."},
-		{pic: "boss2", "text": "YOUR ENTIRE KINGDOM\nWILL TREMBLE IN MY\nPRESENCE."},
-		{pic: "boss3", "text": "BUT ENOUGH TALK.\nHAVE AT THEE!"},
+		{pic: "boss1", "text": "HEHEHE... SO YOU\nDECIDED TO SHOW UP\nAFTER ALL, I SEE.       "},
+		{pic: "boss1", "text": "UNFORTUNATELY FOR\nYOU, YOU'RE TOO LATE.\nTHE PRINCESS IS MINE.       "},
+		{pic: "boss2", "text": "AND NONE OF YOU\nFILTHY SEA CREATURES\nCAN SAVE HER.       "},
+		{pic: "boss2", "text": "YOUR ENTIRE KINGDOM\nWILL TREMBLE IN MY\nPRESENCE.       "},
+		{pic: "boss3", "text": "SURELY YOU ARE NOT\nSO FOOLISH AS TO\nATTEMPT TO DEFY ME.       "},
+		{pic: "boss3", "text": "NOT LIKE YOU HAVE A\nCHANCE. YOUR ERA AS\nRULERS ENDS HERE!       "},
 	],
 	end: function() {
 		return Level("Boss 1");
