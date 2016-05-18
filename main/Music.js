@@ -31,6 +31,12 @@ Music = (function() {
 		currentMusic.volume = Music.volume;
 	}
 	
+	Music.paused = function(paused) {
+		if (currentMusic) {
+			currentMusic.paused = paused;
+		}
+	}
+	
 	Music.stop = function() {
 		if (!currentMusic) {
 			return;

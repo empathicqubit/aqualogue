@@ -192,7 +192,25 @@ Level = function(levelName) {
 		}
 	}
 	
-	level.think = function() {
+	var paused = Renderer.text("Pause", 220, 20);
+	
+	level.paused = function() {
+		if (Input.pressed("cancel")) {
+			level.think = level.unpaused;
+			Music.paused(false);
+			level.stage.removeChild(paused);
+		}
+	}
+	
+	level.think = level.unpaused = function() {
+		if (Input.pressed("cancel")) {
+			level.think = level.paused;
+			dolphin.activeSprite.speed(0);
+			Music.paused(true);
+			level.stage.addChild(paused);
+			return;
+		}
+		
 		eachEntity(function(entity) {
 			if (entity.think) {
 				entity.think();
@@ -290,6 +308,8 @@ Level = function(levelName) {
 	}
 	
 	level.render = function(frames) {
+		if (level.think == level.paused) return;
+		
 		eachEntity(function(entity) {
 			if (!entity.activeSprite) {
 				return;
