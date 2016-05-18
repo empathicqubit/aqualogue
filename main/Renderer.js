@@ -29,6 +29,14 @@ Renderer = (function() {
 			"assets/tiles/bg-cavern.png",
 			"assets/tiles/bg-boss.png",
 			
+			"assets/cutscene/intro1.png",
+			"assets/cutscene/intro2.png",
+			"assets/cutscene/intro3.png",
+			
+			"assets/cutscene/boss1.png",
+			"assets/cutscene/boss2.png",
+			"assets/cutscene/boss3.png",
+			
 			"assets/type.fnt"
 		]).load(next);
 	}

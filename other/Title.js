@@ -68,7 +68,7 @@ Title = function() {
 					Memory.load(true);
 				} else {
 					Memory.clear();
-					Game.setScene(Level("Intro"));
+					Game.setScene(Cutscene("intro"));
 				}
 			}
 			

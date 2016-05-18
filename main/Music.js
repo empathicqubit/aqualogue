@@ -7,6 +7,7 @@ Music = (function() {
 		"new-ocean",
 		"cavern",
 		"boss",
+		"ending",
 	];
 	
 	Music.volume = 0.5;

@@ -215,6 +215,12 @@ Level = function(levelName) {
 				if (Memory.stage() == "Boss 3" && Memory.global.bossClear) {
 					Memory.storeDolphin(0, 200, -800, 0, -1);
 					Game.setScene(Level("Ending"));
+				} else if (Memory.stage() == "Boss 1" && !Memory.global.bossStarted) {
+					Memory.global.bossStarted = true;
+					Game.setScene(Cutscene("boss"));
+				} else if (Memory.stage() == "Intro" && levelName == "Ending") {
+					Memory.save();
+					Game.setScene(Cutscene("ending"));
 				} else {
 					Memory.loadStage();
 				}
