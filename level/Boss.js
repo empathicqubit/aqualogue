@@ -174,6 +174,10 @@ Boss = function(level, x, y, z, mode, dolphin) {
 		
 		flash.alpha = 1-manager/14;
 		
+		if (!manager) {
+			SFX.play("explode");
+		}
+		
 		if (flash.timer < 251) {
 			window.setTimeout(doFlash, 30);
 		}

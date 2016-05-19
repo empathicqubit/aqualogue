@@ -7,6 +7,7 @@ Key = function(level, x, y, z, index, color) {
 	key.collect = function() {
 		level.saveData.keys[index] = true;
 		Memory.global.keys.push(color);
+		SFX.play("select");
 	}
 	
 	if (level.editor) {

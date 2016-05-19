@@ -252,6 +252,7 @@ Level = function(levelName) {
 				Memory.storeDolphin(dolphin.axis.current, dolphin.axis.position,
 					dolphin.position.z, dolphin.momentum.x, dolphin.momentum.y);
 				Memory.save();
+				SFX.play("save");
 				
 				var text = Renderer.text("Your adventure has been saved.", 140, 200)
 				level.stage.addChild(text);
@@ -305,6 +306,11 @@ Level = function(levelName) {
 		camera.z = dolphin.position.z + camera.fwdY;
 		camera.angle = Math.atan2(dolphin.position.y - camera.y, dolphin.position.x - camera.x)
 			+ camera.fwdX;
+			
+		if (Input.held("redkey")) {
+			camera.x += Math.cos(dolphin.angle)*70;
+			camera.y += Math.sin(dolphin.angle)*70;
+		}
 	}
 	
 	level.render = function(frames) {

@@ -66,6 +66,7 @@ Dolphin = function(level, axis, position, z) {
 		}
 		
 		if (dolphin.colliding("tentacle")) {
+			SFX.play("bosshit");
 			dolphin.momentum.x *= -1.3;
 			dolphin.momentum.y *= -1.3;
 			
@@ -89,6 +90,12 @@ Dolphin = function(level, axis, position, z) {
 			dolphin.fliptimer = 99;
 		} else {
 			dolphin.charging = false;
+		}
+		
+		if (Input.pressed("dash")) {
+			SFX.play("dash");
+		} else if (Input.released("dash")) {
+			SFX.stop("dash");
 		}
 	}
 	
@@ -245,10 +252,17 @@ Dolphin = function(level, axis, position, z) {
 			if (check != -1) {
 				Memory.global.keys.splice(check, 1);
 				block.position.x = -99999;
+				block.activeSprite.visible = false;
 				level.saveData.doors[block.index] = true;
+				
+				SFX.play("key");
 				
 				return;
 			}
+			
+			SFX.play("door");
+		} else if (block) {
+			SFX.play("wall");
 		}
 		
 		return block;

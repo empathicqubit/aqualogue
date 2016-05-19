@@ -51,6 +51,8 @@ Rescuee = function(level, data, dolphin) {
 			if (rescuee.bubble) {
 				rescuee.bubble.position.x = -99999;
 				rescuee.bubble.activeSprite.visible = false;
+				
+				SFX.play("key");
 			}
 			
 			rescuee.think = cutscene;

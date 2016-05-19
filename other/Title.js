@@ -79,29 +79,35 @@ Title = function() {
 			title.menuOption = 0;
 			menu[0].alpha = 1;
 			menu[1].alpha = 0.4;
+			SFX.play("menu");
 		}
 		
 		if (Input.pressed("down")) {
 			title.menuOption = 1;
 			menu[1].alpha = 1;
 			menu[0].alpha = 0.4;
+			SFX.play("menu");
 		}
 		
 		if (Input.pressed("left")) {
 			Memory.slot = (Memory.slot + 3) % 5 + 1;
 			txt();
+			SFX.play("menu");
 		}
 		
 		if (Input.pressed("right")) {
 			Memory.slot = Memory.slot % 5 + 1;
 			txt();
+			SFX.play("menu");
 		}
 		
 		if (Input.pressed("accept")) {
 			if (title.menuOption == 0 || Memory.file(Memory.slot)) {
 				title.leaving = true;
+				SFX.play("select");
 			} else {
 				// Indicate that this isn't possible
+				SFX.play("unavailable");
 			}
 		}
 		

@@ -2,10 +2,19 @@ SFX = (function() {
 	var S = createjs.Sound;
 	var SFX = {};
 	
-	SFX.volume = 1;
+	SFX.volume = 0.8;
 	
 	var sounds = [
 		"dash",
+		"menu",
+		"select",
+		"unavailable",
+		"wall",
+		"door",
+		"key",
+		"save",
+		"bosshit",
+		"explode",
 	];
 	
 	SFX.init = function() {
