@@ -59,4 +59,16 @@ RescueDatabase["Post"] = {
 		"These doors are said to be the keys to life.",
 		"What could they mean by that?",
 	]
-}
+};
+
+RescueDatabase["Save 5"] = {
+	sprite: "gf",
+	position: { 
+			"x": 1358,
+			"y": 1365,
+			"z": 149 },
+	lines: [
+		".....",
+		"I'll never leave.",
+	]
+};

@@ -256,6 +256,11 @@ Level = function(levelName) {
 				Memory.save();
 				SFX.play("save");
 				
+				// Special ending.
+				if (levelName == "Save 5") {
+					Game.setScene(Ending());
+				}
+				
 				var text = Renderer.text("Your adventure has been saved.", 140, 200)
 				level.stage.addChild(text);
 				
