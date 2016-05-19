@@ -6,7 +6,7 @@ Rescuee = function(level, data, dolphin) {
 	
 	if (data.dead) {
 		rescuee.activeSprite.rotation = Math.PI;
-	} else {
+	} else if (!data.post) {
 		rescuee.bubble = Entity(level, data.position.x, data.position.y, data.position.z);
 		rescuee.bubble.addSprite("spr", Renderer.sprite("bubble"));
 		rescuee.bubble.currentSprite("spr");

@@ -157,6 +157,8 @@ Level = function(levelName) {
 				placeEntityInGrid(r.bubble);
 				placeEntityInGrid(r.barrier);
 			}
+		} else if (levelName == "Intro" && Memory.global.bossClear) {
+			placeEntityInGrid(Rescuee(level, RescueDatabase.Post, dolphin));
 		}
 		
 		// Boss.

@@ -48,3 +48,15 @@ RescueDatabase["Ending"] = {
 		".....",
 	]
 };
+
+RescueDatabase["Post"] = {
+	sprite: "midget",
+	post: "yup",
+	position: {
+		x: 11744, y: 5774, z: 64
+	},
+	lines: [
+		"These doors are said to be the keys to life.",
+		"What could they mean by that?",
+	]
+}
