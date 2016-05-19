@@ -7,6 +7,7 @@ Game = (function() {
 		Renderer.init(initScene);
 		
 		Music.init();
+		SFX.init();
 		
 		function initScene() {
 			// Run callback to set the inital scene.
