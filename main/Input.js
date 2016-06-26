@@ -55,14 +55,14 @@ Input = (function() {
 		}
 	}
 	
-	window.addEventListener("keydown", function(event) {
+	window.document.addEventListener("keydown", function(event) {
 		if (usedKeys[event.keyCode]) {
 			event.preventDefault();
 			keys[event.keyCode] = true;
 		}
 	});
 	
-	window.addEventListener("keyup", function(event) {
+	window.document.addEventListener("keyup", function(event) {
 		if (usedKeys[event.keyCode]) {
 			event.preventDefault();
 			keys[event.keyCode] = false;

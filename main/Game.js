@@ -4,10 +4,10 @@ Game = (function() {
 	var currentScene, incomingScene;
 	
 	Game.init = function(callback) {
-		Renderer.init(initScene);
-		
 		Music.init();
 		SFX.init();
+		
+		Renderer.init(initScene);
 		
 		function initScene() {
 			// Run callback to set the inital scene.
