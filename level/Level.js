@@ -313,11 +313,6 @@ Level = function(levelName) {
 		camera.z = dolphin.position.z + camera.fwdY;
 		camera.angle = Math.atan2(dolphin.position.y - camera.y, dolphin.position.x - camera.x)
 			+ camera.fwdX;
-			
-		if (Input.held("redkey")) {
-			camera.x += Math.cos(dolphin.angle)*70;
-			camera.y += Math.sin(dolphin.angle)*70;
-		}
 	}
 	
 	level.render = function(frames) {
