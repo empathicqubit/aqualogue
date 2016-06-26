@@ -1,5 +1,8 @@
 # Here be spaghetti code.
 
+This is a game I made for AdventureJam 2016 in about two weeks. The posting for that
+can be found [right here!](http://gamejolt.com/games/aqualogue/149573)
+
 You probably shouldn't try to use this disorganized mess for anything. That said,
 if you really want to mess with this game, I'm putting it out there under the BSD
 license. See the bottom of this doc.
@@ -10,7 +13,8 @@ I got fuckin' lazy and didn't set up a proper build system, so you get a batch f
 instead. Run that and it will create an index.html that embeds all JS files in
 subfolders. That should be all you need to run the javascript, although to distribute
 it you're going to have to edit the generated file to use relative paths instead
-of absolute filesystem paths. (Sorry.)
+of absolute filesystem paths. (Sorry. You're welcome to set up a build process that
+isn't total ass if you want.)
 
 Sprites need to be assembled into a sheet in the main assets/ folder with a JSON
 hash file that PixiJS can pick up. I used TexturePacker while creating this.
