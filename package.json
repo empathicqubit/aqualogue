@@ -1,0 +1,16 @@
+{
+  "name": "aqualogue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/RedEnchilada/aqualogue",
+  "author": "redenchilada",
+  "license": "BSD",
+  "private": true,
+  "dependencies": {
+    "serve": "^11.0.0",
+    "shelljs": "^0.8.3"
+  },
+  "scripts": {
+    "build": "node ./scripts.js build"
+  }
+}

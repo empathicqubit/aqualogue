@@ -1,7 +1,7 @@
 /index.html
-/tmpfile
 /assets/sprites.json
 /assets/sprites.png
 /assets/sprites/project-files
 /assets/music/*.wav
 /assets/sfx/*.wav
+/node_modules/
